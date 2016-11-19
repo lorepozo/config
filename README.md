@@ -7,8 +7,8 @@ also download the submodules:
 git clone --recursive git@github.com:lucasem/arch-init
 ```
 
-The primary resource here is the [`Makefile`](./Makefile) which has a few
-main targets:
+The main resource here is the [`Makefile`](./Makefile) which has a few
+primary targets:
 
 ```sh
 # install and configure most things (e.g. vim, zsh, git)
@@ -17,4 +17,8 @@ make
 make gui-mac
 make gui-vm
 ```
+
+There are many other useful targets (e.g. `files` or `vim`) that are covered
+by the primary ones. Take a look at the Makefile to see what other targets
+there are, and what they do.
 
