@@ -1,0 +1,73 @@
+*dpi:                180
+*antialias:          true
+*hinting:            true
+*hintstyle:          hintfull
+*loginShell:         true
+
+urxvt.font:          xft:DejaVuSansMono:size=8
+! urxvt.font:              xft:menlo:size=13
+! *letterSpace:        -4
+! xterm*faceName:      DejaVu Sans Mono:antialias=true
+! xterm*faceSize:      9
+! xterm*font: 7x13
+*matcher.button:     1
+*allow_bold:         true
+
+*scrollBar:          false
+*scrollWithBuffer:   true
+*scrollTtyKeypress:  true
+
+*transparent:        false
+!*background:         #080d0f
+*background:         #000000
+*foreground:         #d9e6f2
+
+! ! black
+! *color0: #000000
+! ! bright_black
+! *color8: #262626
+! ! red
+! *color1: #b87a7a
+! ! bright_red
+! *color9: #dbbdbd
+! ! green
+! *color2: #7ab87a
+! ! bright_green
+! *color10: #bddbbd
+! ! yellow
+! *color3: #b8b87a
+! ! bright_yellow
+! *color11: #dbdbbd
+! ! blue
+! *color4: #7a7ab8
+! ! bright_blue
+! *color12: #bdbddb
+! ! magenta
+! *color5: #b87ab8
+! ! bright_magenta
+! *color13: #dbbddb
+! ! cyan
+! *color6: #7ab8b8
+! ! bright_cyan
+! *color14: #bddbdb
+! ! white
+! *color7: #d9d9d9
+! ! bright_white
+! *color15: #ffffff
+!
+!*color0:  #000000
+!*color1:  #840002
+!*color2:  #149a03
+!*color3:  #878a05
+*color4:  #5858cc
+!*color5:  #a000a3
+!*color6:  #1396a4
+*color7:  #d9d9d9
+!*color8:  #535353
+!*color9:  #dc0005
+!*color10: #1cd604
+!*color11: #e0e309
+!*color12: #000aff
+!*color13: #dc00df
+!*color14: #1de2df
+!*color15: #e0dfe0

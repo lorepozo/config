@@ -1,0 +1,15 @@
+[alias]
+	lol = log --graph --oneline --decorate --color --all
+	b = branch
+	c = commit
+	cp = cherry-pick
+	f = fetch
+	o = checkout
+	r = rebase
+	s = status
+[core]
+	pager = diff-highlight | less --tabs=4 -RFX
+[color]
+	ui = true
+[diff]
+	compactionHeuristic = true
