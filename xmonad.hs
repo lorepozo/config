@@ -1,58 +1,59 @@
 import XMonad
-import XMonad.Config.Xfce -- xfceConfig
-import XMonad.Util.EZConfig -- additionalKeys (appends to default keys)
-import XMonad.Hooks.ManageDocks -- avoidStruts (status bar)
-import XMonad.Layout.Grid
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.ThreeColumns
+import XMonad.Config.Xfce (xfceConfig)
+import XMonad.Util.EZConfig (additionalKeys, additionalMouseBindings)
+import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks, ToggleStruts(ToggleStruts))
+import XMonad.Layout.Grid (Grid(Grid))
+import XMonad.Layout.ResizableTile (ResizableTall(ResizableTall), MirrorResize(MirrorShrink, MirrorExpand))
+import XMonad.Layout.ThreeColumns (ThreeCol(ThreeColMid))
+import Text.Printf (printf)
 import qualified XMonad.StackSet as W
-import qualified Data.Map as M
 
-main = xmonad $ xfceConfig {
-    terminal = myTerminal
+main = xmonad $ xfceConfig
+  { terminal    = myTerminal
   , borderWidth = myBorderWidth
-  , layoutHook = myLayouts
-  , workspaces = myWorkspaces
-  , modMask = myModMask
-  , manageHook = manageHook xfceConfig <+> manageDocks
+  , layoutHook  = myLayouts
+  , workspaces  = myWorkspaces
+  , modMask     = mod4Mask
+  , manageHook  = manageHook xfceConfig <+> manageDocks
   , startupHook = windows $ W.greedyView startupWorkspace
   } `additionalKeys` myKeys
     `additionalMouseBindings` myMouseBindings
 
-myModMask     = mod4Mask
+myTerminal = "xfce4-terminal"
 myBorderWidth = 0
-myTerminal    = "urxvt"
-myWorkspaces =
-  [ "1",  "2", "3"
-  , "4",  "5", "6"
-  , "7",  "8", "9"
-  , "0",  "-", "+"
-  ]
-startupWorkspace = "1"
+myNotifier msg = spawn $
+  printf "notify-send -t 1000 xmonad '%s'" msg
 
-myLayouts = avoidStruts basicLayouts
-basicLayouts =
+startupWorkspace = myWorkspaces!!0
+myWorkspaces = map show [ 1 .. 9 ] ++ [ "0", "-", "+" ]
+myWorkspaceKeys = [ xK_1 .. xK_9 ] ++ [ xK_0, xK_minus, xK_equal ]
+
+myLayouts = avoidStruts $
   ResizableTall 1 (3/100) (1/2) []
   ||| Mirror (ResizableTall 1 (3/100) (1/2) [])
   ||| ThreeColMid 1 (3/100) (1/2)
   ||| Full
   ||| Grid
 
+notifyLayout = gets windowset
+  >>= return . description . W.layout . W.workspace . W.current
+    >>= myNotifier
+
 myKeys = myKeyBindings ++ workspaceKeyBindings
 myKeyBindings =
-  [ ((myModMask, xK_b), sendMessage ToggleStruts)
-  , ((myModMask, xK_a), sendMessage MirrorShrink)
-  , ((myModMask, xK_z), sendMessage MirrorExpand)
-  , ((myModMask, xK_o), spawn "dmenu_run")
+  [ ((mod4Mask, xK_b), sendMessage ToggleStruts)
+  , ((mod4Mask, xK_a), sendMessage MirrorShrink)
+  , ((mod4Mask, xK_z), sendMessage MirrorExpand)
+  , ((mod4Mask, xK_space), spawn "dmenu_run")
+  , ((mod1Mask, xK_space), sendMessage NextLayout >> notifyLayout)
+  , ((mod4Mask .|. shiftMask, xK_q), spawn "xfce4-session-logout")
   ]
 workspaceKeyBindings =
-  [((m .|. myModMask, k), windows $ f i)
-      | (i, k) <- zip myWorkspaces workspaceKeys
-      , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-workspaceKeys = [ xK_1 .. xK_9 ] ++ [ xK_0, xK_minus, xK_equal ]
+  [((m .|. mod4Mask, k), windows $ f i)
+      | (i, k) <- zip myWorkspaces myWorkspaceKeys
+      , (f, m) <- [(W.greedyView, noModMask), (W.shift, shiftMask)]]
 
 myMouseBindings =
-  [ ((myModMask .|. mod1Mask, button1),
-     (\w -> focus w >> mouseResizeWindow w))
-  ]
+  [((mod1Mask .|. mod4Mask, button1),
+    (\w -> focus w >> mouseResizeWindow w))]
 
