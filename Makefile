@@ -19,11 +19,22 @@ py:
 	pip install ptpython
 	virtualenv ~/py
 
-clis:
+clis: yaourt
 	pacman -S vim git hub zsh wget tree sudo neovim
 	mkdir -p ~/bin
 	curl -LSso ~/bin/diff-highlight "https://github.com/git/git/raw/master/contrib/diff-highlight/diff-highlight"
 	chmod +x ~/bin/diff-highlight
+
+yaourt:
+	git clone https://aur.archlinux.org/package-query.git
+	cd package-query
+	makepkg -si
+	cd ..
+	git clone https://aur.archlinux.org/yaourt.git
+	cd yaourt
+	makepkg -si
+	cd ..
+	rm -rf package-query yaourt
 
 service:
 	pacman -S openssh
@@ -56,11 +67,13 @@ vim:
 gui:
 	@echo "select either gui-vm or gui-mac"
 
-gui-vm: drivers xorg-vm xmonad
+gui-vm: xorg-vm gui-general
 	@echo "you may need to install additional drivers"
 
-gui-mac: drivers xorg-mac xmonad
+gui-mac: xorg-mac gui-general
 	@echo "you may need to install additional drivers"
+
+gui-general: drivers xmonad applications
 
 drivers:
 	pacman -S xf86-input-synaptics nvidia
@@ -87,7 +100,10 @@ xorg-mac: xorg
 	cp xorg.mac.conf /etc/X11/xorg.conf
 
 xmonad:
-	pacman -S xmonad xmonad-contrib dmenu rxvt-unicode
+	pacman -S xmonad xmonad-contrib dmenu xterm
 	mkdir -p ~/.xmonad
 	cp xmonad.hs ~/.xmonad/xmonad.hs
 
+applications:
+	pacman -S firefox
+	yaourt -S slack-beta
