@@ -9,6 +9,7 @@
 	s = status
 [core]
 	pager = diff-highlight | less --tabs=4 -RFX
+	excludesFile = ~/.gitignore
 [color]
 	ui = true
 [diff]
