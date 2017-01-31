@@ -7,8 +7,9 @@ also download the submodules:
 git clone --recursive git@github.com:lucasem/arch-init
 ```
 
-The main resource here is the [`Makefile`](./Makefile) which has a few
-primary targets:
+Before doing anything more: install sudo, enable privileges for a new user,
+and log in as that user. The main resource here is the
+[`Makefile`](./Makefile) which has a few primary targets:
 
 ```sh
 # install and configure most things (e.g. vim, zsh, git)

@@ -8,36 +8,33 @@ all: start files
 start: lang lang-util clis service
 
 lang:
-	pacman -S python nodejs npm texlive-core
+	sudo pacman -S python nodejs npm texlive-core
 
 lang-util: py
-	pacman -S texlive-latexextra texlive-genericextra
+	sudo pacman -S texlive-latexextra texlive-genericextra
 
 py:
-	pacman -S ipython python-pip python-virtualenv
+	sudo pacman -S ipython python-pip python-virtualenv
 	pip install --upgrade pip # arch repo can be outdated
 	pip install ptpython
 	virtualenv ~/py
 
 clis: yaourt
-	pacman -S vim git hub zsh wget tree sudo neovim
+	sudo pacman -S vim git hub zsh wget tree sudo neovim
 	mkdir -p ~/bin
 	curl -LSso ~/bin/diff-highlight "https://github.com/git/git/raw/master/contrib/diff-highlight/diff-highlight"
 	chmod +x ~/bin/diff-highlight
 
 yaourt:
+	sudo pacman -S ca-certificates-utils
 	git clone https://aur.archlinux.org/package-query.git
-	cd package-query
-	makepkg -si
-	cd ..
+	cd package-query && makepkg -si
 	git clone https://aur.archlinux.org/yaourt.git
-	cd yaourt
-	makepkg -si
-	cd ..
+	cd yaourt && makepkg -si
 	rm -rf package-query yaourt
 
 service:
-	pacman -S openssh
+	sudo pacman -S openssh
 	systemctl enable sshd
 
 #############
@@ -76,10 +73,10 @@ gui-mac: xorg-mac gui-general
 gui-general: drivers xmonad applications
 
 drivers:
-	pacman -S xf86-input-synaptics nvidia
+	sudo pacman -S xf86-input-synaptics nvidia
 
 xorg:
-	pacman -S xorg-server xorg-xinit xorg-server-utils xorg-xinit xorg-xrandr xorg-xrdb slim
+	sudo pacman -S xorg-server xorg-xinit xorg-server-utils xorg-xinit xorg-xrandr xorg-xrdb slim
 	cp zlogin ~/.zlogin
 	cp xinitrc ~/.xinitrc
 	cp Xresources ~/.Xresources
@@ -90,7 +87,7 @@ xorg-vm: xorg
 	cp xorg.vm.conf /etc/X11/xorg.conf
 
 xorg-mac: xorg
-	pacman -S acpid
+	sudo pacman -S acpid
 	systemctl enable acpid
 	nvidia-xconfig
 	echo "install i915 /bin/false\ninstall intel_agp /bin/false\ninstall intel_gtt /bin/false" > /etc/modprobe.d/video.conf
@@ -100,10 +97,10 @@ xorg-mac: xorg
 	cp xorg.mac.conf /etc/X11/xorg.conf
 
 xmonad:
-	pacman -S xmonad xmonad-contrib dmenu xterm
+	sudo pacman -S xmonad xmonad-contrib dmenu xterm
 	mkdir -p ~/.xmonad
 	cp xmonad.hs ~/.xmonad/xmonad.hs
 
 applications:
-	pacman -S firefox
+	sudo pacman -S firefox
 	yaourt -S slack-beta
