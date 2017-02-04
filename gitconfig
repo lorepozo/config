@@ -1,16 +1,23 @@
+[user]
+    name = Lucas Morales
+    email = lucas@lucasem.com
+    signingkey = AB31E959F7559E19
+[commit]
+    gpgsign = true
 [alias]
-	lol = log --graph --oneline --decorate --color --all
-	b = branch
-	c = commit
-	cp = cherry-pick
-	f = fetch
-	o = checkout
-	r = rebase
-	s = status
+    lol = log --graph --oneline --decorate --color --all
+    a = add
+    b = branch
+    c = commit
+    cp = cherry-pick
+    f = fetch
+    o = checkout
+    r = rebase
+    s = status
 [core]
-	pager = diff-highlight | less --tabs=4 -RFX
-	excludesFile = ~/.gitignore
+    pager = diff-highlight | less --tabs=4 -RFX
+    excludesfile = ~/.gitignore
 [color]
-	ui = true
+    ui = true
 [diff]
-	compactionHeuristic = true
+    compactionHeuristic = true
