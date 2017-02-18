@@ -5,7 +5,8 @@
 [commit]
     gpgsign = true
 [alias]
-    lol = log --graph --oneline --decorate --color --all
+    lol = log --graph --pretty=format:'%C(yellow)%h%C(bold red)%d%Creset %s %Cgreen{%an} %Cblue%cr%Creset' --abbrev-commit
+    l = lol
     a = add
     b = branch -vv
     c = commit
