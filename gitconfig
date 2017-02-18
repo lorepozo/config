@@ -7,7 +7,7 @@
 [alias]
     lol = log --graph --oneline --decorate --color --all
     a = add
-    b = branch
+    b = branch -vv
     c = commit
     cp = cherry-pick
     f = fetch
