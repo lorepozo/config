@@ -2,8 +2,10 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 set number rnu
-set tabstop=4 softtabstop=0 expandtab shiftwidth=2 smarttab
+set expandtab shiftwidth=2 smarttab
 set backspace=indent,eol,start
 set incsearch
-set tw=76 ruler
+set ruler
 inoremap <S-Tab> <C-V><Tab>
+
+autocmd FileType text,tex,mail,markdown,rst set tw=76
