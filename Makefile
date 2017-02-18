@@ -24,7 +24,7 @@ py:
 	virtualenv ~/py
 
 clis: pacaur
-	sudo pacman -S vim git hub zsh wget tree sudo neovim
+	sudo pacman -S git hub zsh wget tree neovim tmux
 	mkdir -p ~/bin
 	curl -LSso ~/bin/diff-highlight "https://github.com/git/git/raw/master/contrib/diff-highlight/diff-highlight"
 	chmod +x ~/bin/diff-highlight
