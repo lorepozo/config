@@ -7,8 +7,12 @@ all: start files
 
 start: lang lang-util clis service
 
-lang:
+lang: rust
 	sudo pacman -S python nodejs npm texlive-core
+
+rust:
+	curl https://sh.rustup.rs -sSf | sh
+	rustup update
 
 lang-util: py
 	sudo pacman -S texlive-latexextra texlive-genericextra
@@ -19,19 +23,18 @@ py:
 	pip install ptpython
 	virtualenv ~/py
 
-clis: yaourt
+clis: pacaur
 	sudo pacman -S vim git hub zsh wget tree sudo neovim
 	mkdir -p ~/bin
 	curl -LSso ~/bin/diff-highlight "https://github.com/git/git/raw/master/contrib/diff-highlight/diff-highlight"
 	chmod +x ~/bin/diff-highlight
 
-yaourt:
-	sudo pacman -S ca-certificates-utils
-	git clone https://aur.archlinux.org/package-query.git
-	cd package-query && makepkg -si
-	git clone https://aur.archlinux.org/yaourt.git
-	cd yaourt && makepkg -si
-	rm -rf package-query yaourt
+pacaur:
+	git clone https://aur.archlinux.org/cower.git
+	cd cower && makepkg -si
+	git clone https://aur.archlinux.org/pacaur.git
+	cd pacaur && makepkg -si
+	rm -rf cower pacaur
 
 service:
 	sudo pacman -S openssh
@@ -42,8 +45,9 @@ service:
 #############
 
 files: vim
-	cp -r zsh ~/.zsh && ln -s ~/.zsh/zshrc ~/.zshrc
+	hub clone --recursive lucasem/zsh ~/.zsh && ln -s ~/.zsh/zshrc ~/.zshrc
 	cp gitconfig ~/.gitconfig
+	cp tmux.conf ~/.tmux.conf
 
 vim:
 	mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.config
@@ -54,6 +58,7 @@ vim:
 	hub clone elzr/vim-json ~/.vim/bundle/vim-json
 	hub clone plasticboy/vim-markdown ~/.vim/bundle/vim-markdown
 	hub clone digitaltoad/vim-pug ~/.vim/bundle/vim-pug
+	hub clone rust-lang/rust.vim ~/.vim/bundle/vim-rust
 	ln -s ~/.vim ~/.config/nvim
 	ln -s ~/.vim/init.vim ~/.vimrc
 
@@ -101,6 +106,14 @@ xmonad:
 	mkdir -p ~/.xmonad
 	cp xmonad.hs ~/.xmonad/xmonad.hs
 
-applications:
+applications: alacritty
 	sudo pacman -S firefox
-	yaourt -S slack-beta
+	pacaur -S slack-beta
+
+alacritty:
+	hub clone jwilm/alacritty
+	cd alacritty && cargo build --release
+	mkdir -p /usr/local/bin
+	sudo mv alacritty/target/release/alacritty /usr/local/bin/alacritty
+	sudo mv alacritty/alacritty.yml ~/.alacritty.yml
+	rm -rf alacritty

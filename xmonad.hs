@@ -19,7 +19,7 @@ main = xmonad $ xfceConfig
   } `additionalKeys` myKeys
     `additionalMouseBindings` myMouseBindings
 
-myTerminal = "xfce4-terminal"
+myTerminal = "alacritty"
 myBorderWidth = 0
 myNotifier msg = spawn $
   printf "notify-send -t 1000 xmonad '%s'" msg
