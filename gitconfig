@@ -11,6 +11,7 @@
     b = branch -vv
     c = commit
     cp = cherry-pick
+    d = diff
     f = fetch
     o = checkout
     r = rebase
