@@ -102,9 +102,11 @@ xorg-mac: xorg
 	cp xorg.mac.conf /etc/X11/xorg.conf
 
 xmonad:
-	sudo pacman -S xmonad xmonad-contrib dmenu xterm
+	sudo pacman -S xmonad xmonad-contrib rofi
 	mkdir -p ~/.xmonad
 	cp xmonad.hs ~/.xmonad/xmonad.hs
+	mkdir -p ~/.config/rofi
+	cp rofi.config ~/.config/rofi/config
 
 applications: alacritty
 	sudo pacman -S firefox
