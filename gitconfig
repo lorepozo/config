@@ -12,6 +12,7 @@
     c = commit
     cp = cherry-pick
     d = diff
+    ds = diff --staged
     f = fetch
     o = checkout
     r = rebase
