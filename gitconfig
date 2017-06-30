@@ -5,15 +5,20 @@
 [commit]
     gpgsign = true
 [alias]
-    lol = log --graph --pretty=format:'%C(yellow)%h%C(bold red)%d%Creset %s %Cgreen{%an} %Cblue%cr%Creset' --abbrev-commit
+    lol = log --all --graph --pretty=format:'%C(yellow)%h%C(bold red)%d%Creset %s %Cgreen{%an} %Cblue%cr%Creset' --abbrev-commit
     l = lol
     a = add
+    am = commit --amend --no-edit
     b = branch -vv
     c = commit
+    co = checkout
     cp = cherry-pick
     d = diff
+    da = diff -U99999
+    del = !git-del
     ds = diff --staged
     f = fetch
+    nb = !git-nb
     o = checkout
     r = rebase
     s = status

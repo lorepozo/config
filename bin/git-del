@@ -1,0 +1,52 @@
+#!/bin/sh
+cur_branch=`git rev-parse --abbrev-ref HEAD`
+cur_commit=`git rev-parse --verify HEAD`
+branch=$cur_branch
+
+# default_ref=$cur_commit
+default_ref=master
+
+dry=0
+
+c=0
+while [ $# -gt 0 ]
+do
+  case "$1" in
+    --dry|--dry-run)
+      dry=1
+      shift
+      ;;
+    *)
+      c=$((c+1))
+      if [ $c -eq 1 ]
+      then branch="$1"
+      else >&2 echo "Usage: `basename $0` [--dry-run] [branch]" ; exit 1
+      fi
+      shift
+      ;;
+  esac
+done
+
+tracking=`git rev-parse --symbolic-full-name --abbrev-ref $branch@{u} 2>/dev/null`
+if [ $? -eq 0 ]
+then
+  tracking_remote=`echo $tracking | sed 's_/.*$__'`
+  tracking_branch=`echo $tracking | sed 's_^[^/]*/__'`
+  if [ $dry -gt 0 ]
+  then echo "git push $tracking_remote --delete $tracking_branch"
+  else git push $tracking_remote --delete $tracking_branch
+  fi
+fi
+
+if [ "$cur_branch" = "$branch" ]
+then
+  if [ $dry -gt 0 ]
+  then echo "git checkout $default_ref"
+  else git checkout $default_ref
+  fi
+fi
+
+if [ $dry -gt 0 ]
+then echo "git branch -D $branch"
+else git branch -D $branch
+fi

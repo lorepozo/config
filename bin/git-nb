@@ -1,0 +1,43 @@
+#!/bin/bash
+remote=`git remote | head -n 1` # default remote
+branch=
+dry=0
+
+c=0
+while [ $# -gt 0 ]
+do
+  case "$1" in
+    --dry|--dry-run)
+      dry=1
+      shift
+      ;;
+    *)
+      c=$((c+1))
+      if [ $c -eq 1 ]
+      then branch="$1"
+      elif [ $c -eq 2 ]
+      then
+        remote="$branch"
+        branch="$1"
+      else >&2 echo "Usage: `basename $0` [--dry-run] [remote] branch" ; exit 1
+      fi
+      shift
+      ;;
+  esac
+done
+
+if [ -z "$branch" ]
+then >&2 echo "invalid branch name" ; exit 1
+fi
+if [ -z "$remote" ]
+then >&2 echo "invalid remote name" ; exit 1
+fi
+
+if [ $dry -gt 0 ]
+then
+  echo "git checkout -b $branch"
+  echo "git push -u $remote $branch"
+else
+  git checkout -b "$branch"
+  git push -u "$remote" "$branch"
+fi
