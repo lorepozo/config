@@ -151,3 +151,5 @@ alacritty:
 	mkdir -p /usr/local/bin
 	sudo mv alacritty/target/release/alacritty /usr/local/bin/alacritty
 	rm -rf alacritty
+	mkdir -p ~/.config/alacritty
+	cp alacritty.yml ~/.config/alacritty/alacritty.yml
