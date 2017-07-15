@@ -1,15 +1,56 @@
 #!/bin/bash
-remote=`git remote | head -n 1` # default remote
-branch=
-dry=0
 
-c=0
+remote=`git config --get core.defaultremote` # default remote
+if [ $? -ne 0 ]
+then remote=`git remote | head -n 1`
+fi
+branch= # new branch name
+
+usage () {
+  >&2 cat <<EOF
+Usage: `basename $0` [options] [REMOTE] BRANCH
+  Make a new branch and set up tracking automatically.
+
+BRANCH   The name of the new branch to be created.
+REMOTE   The remote that the new branch should track on.
+         (default: $remote)
+
+options:
+  -d, --dry-run   Print the operations that would be performed, rather than
+                  actually performing them.
+EOF
+  exit 1
+}
+
+assert_valid_branch() {
+  b="$1"
+  if [ -z "$b" ]
+  then
+    >&2 echo "invalid branch: $b"
+    usage
+  fi
+}
+
+assert_valid_remote() {
+  r="$1"
+  if ! git remote | grep -q "^$r$"
+  then
+    >&2 echo "invalid remote: $r"
+    usage
+  fi
+}
+
+dry_run=0
+c=0 # positional argument counter
 while [ $# -gt 0 ]
 do
   case "$1" in
-    --dry|--dry-run)
-      dry=1
+    -d|--dry|--dry-run)
+      dry_run=1
       shift
+      ;;
+    -h|--help)
+      usage
       ;;
     *)
       c=$((c+1))
@@ -19,21 +60,17 @@ do
       then
         remote="$branch"
         branch="$1"
-      else >&2 echo "Usage: `basename $0` [--dry-run] [remote] branch" ; exit 1
+      else usage
       fi
       shift
       ;;
   esac
 done
 
-if [ -z "$branch" ]
-then >&2 echo "invalid branch name" ; exit 1
-fi
-if [ -z "$remote" ]
-then >&2 echo "invalid remote name" ; exit 1
-fi
+assert_valid_branch "$branch"
+assert_valid_remote "$remote"
 
-if [ $dry -gt 0 ]
+if [ $dry_run -gt 0 ]
 then
   echo "git checkout -b $branch"
   echo "git push -u $remote $branch"

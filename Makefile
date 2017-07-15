@@ -1,11 +1,15 @@
 all: start files
 	@echo "run `make gui' to setup gui environment"
 
+mac: mac-start files
+
+
 #############
 ### start ###
 #############
 
 start: lang lang-util clis service
+	chsh -s /bin/zsh
 
 lang: rust
 	sudo pacman -S python nodejs npm texlive-core
@@ -24,10 +28,8 @@ py:
 	virtualenv ~/py
 
 clis: pacaur
-	sudo pacman -S git hub zsh wget tree neovim tmux
-	mkdir -p ~/bin
-	curl -LSso ~/bin/diff-highlight "https://github.com/git/git/raw/master/contrib/diff-highlight/diff-highlight"
-	chmod +x ~/bin/diff-highlight
+	sudo pacman -S git hub zsh wget tree tmux gnupg neovim
+	cargo install ripgrep
 
 pacaur:
 	git clone https://aur.archlinux.org/cower.git
@@ -40,14 +42,45 @@ service:
 	sudo pacman -S openssh
 	systemctl enable sshd
 
+
+#################
+### mac-start ###
+#################
+
+mac-start: brew mac-lang mac-clis alacritty
+	chsh -s /bin/zsh
+
+brew:
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+mac-lang: mac-py rust
+	brew install go
+	brew cask install mactex
+
+mac-py:
+	brew install python3
+	pip3 install virtualenv ipython ptpython
+	virtualenv ~/py
+
+mac-clis:
+	brew install hub wget tree tmux neovim reattach-to-user-namespace pass
+	cargo install ripgrep
+
+
 #############
 ### files ###
 #############
 
-files: vim
+files: bins vim
 	hub clone --recursive lucasem/zsh ~/.zsh && ln -s ~/.zsh/zshrc ~/.zshrc
 	cp gitconfig ~/.gitconfig
 	cp tmux.conf ~/.tmux.conf
+
+bins:
+	mkdir -p ~/bin
+	curl -LSso ~/bin/diff-highlight "http://github.com/git/git/raw/3dbfe2b8ae94cbdae5f3d32581aedaa5510fdc87/contrib/diff-highlight/diff-highlight"
+	chmod +x ~/bin/diff-highlight
+	cp bin/* ~/bin/
 
 vim:
 	mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.config
@@ -117,5 +150,4 @@ alacritty:
 	cd alacritty && cargo build --release
 	mkdir -p /usr/local/bin
 	sudo mv alacritty/target/release/alacritty /usr/local/bin/alacritty
-	sudo mv alacritty/alacritty.yml ~/.alacritty.yml
 	rm -rf alacritty

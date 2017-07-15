@@ -7,6 +7,7 @@ set expandtab shiftwidth=2 smarttab
 set backspace=indent,eol,start
 set incsearch
 set ruler
+set mouse=a
 
 let s:commenters_left = {
     \   "bashrc": '#',

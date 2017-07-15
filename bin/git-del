@@ -1,38 +1,78 @@
 #!/bin/sh
+
 cur_branch=`git rev-parse --abbrev-ref HEAD`
 cur_commit=`git rev-parse --verify HEAD`
-branch=$cur_branch
 
-# default_ref=$cur_commit
-default_ref=master
+usage () {
+  >&2 cat <<EOF
+Usage: `basename $0` [options] [BRANCH]
 
-dry=0
+BRANCH   The branch to delete. Default is the current branch ($cur_branch)
 
-c=0
+options:
+  -d, --dry-run    Print the operations that would be performed, rather than
+                   actually performing them.
+  -r, --ref <REF>  Specify a ref to checkout after branch deletion if you are
+                   on the branch that will be deleted.  (default: master)
+  -c, --current-commit
+                   Equivalent to --ref $cur_commit
+EOF
+  exit 1
+}
+
+assert_valid_branch() {
+  b="$1"
+  if ! git branch | sed 's_^.\{0,1\}  *__' | grep -q "^$b$"
+  then
+    >&2 echo "invalid branch: $b"
+    usage
+  fi
+}
+
+branch=$cur_branch # what we'll be deleting
+default_ref=master # where we'll end up after
+
+dry_run=0
+c=0 # positional argument counter
 while [ $# -gt 0 ]
 do
   case "$1" in
-    --dry|--dry-run)
-      dry=1
+    -d|--dry|--dry-run)
+      dry_run=1
       shift
+      ;;
+    -c|--current|--current-commit)
+      default_ref="$cur_commit"
+      shift
+      ;;
+    -r|--ref)
+      shift
+      default_ref="$1"
+      shift
+      ;;
+    --help)
+      usage
       ;;
     *)
       c=$((c+1))
       if [ $c -eq 1 ]
       then branch="$1"
-      else >&2 echo "Usage: `basename $0` [--dry-run] [branch]" ; exit 1
+      else usage
       fi
       shift
       ;;
   esac
 done
 
+
+assert_valid_branch "$branch"
+
 tracking=`git rev-parse --symbolic-full-name --abbrev-ref $branch@{u} 2>/dev/null`
 if [ $? -eq 0 ]
 then
   tracking_remote=`echo $tracking | sed 's_/.*$__'`
   tracking_branch=`echo $tracking | sed 's_^[^/]*/__'`
-  if [ $dry -gt 0 ]
+  if [ $dry_run -gt 0 ]
   then echo "git push $tracking_remote --delete $tracking_branch"
   else git push $tracking_remote --delete $tracking_branch
   fi
@@ -40,13 +80,13 @@ fi
 
 if [ "$cur_branch" = "$branch" ]
 then
-  if [ $dry -gt 0 ]
+  if [ $dry_run -gt 0 ]
   then echo "git checkout $default_ref"
   else git checkout $default_ref
   fi
 fi
 
-if [ $dry -gt 0 ]
+if [ $dry_run -gt 0 ]
 then echo "git branch -D $branch"
 else git branch -D $branch
 fi
