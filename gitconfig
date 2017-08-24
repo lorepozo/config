@@ -5,7 +5,7 @@
 [commit]
     gpgsign = true
 [alias]
-    lol = log --all --graph --pretty=format:'%C(yellow)%h%C(bold red)%d%Creset %s %Cgreen{%an} %Cblue%cr%Creset' --abbrev-commit
+    lol = log --all --graph --date-order --pretty=format:'%C(yellow)%h%C(bold red)%d%Creset %s %Cgreen{%an} %Cblue%cr%Creset' --abbrev-commit
     l = lol
     a = add
     am = commit --amend --no-edit
@@ -29,3 +29,5 @@
     ui = true
 [diff]
     compactionHeuristic = true
+[pull]
+    rebase = true
