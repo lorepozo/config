@@ -2,12 +2,18 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 autocmd FileType text,tex,mail,markdown,rst set tw=76
+autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
 set number rnu
 set expandtab shiftwidth=2 smarttab
 set backspace=indent,eol,start
 set incsearch
 set ruler
 set mouse=a
+
+let g:vim_markdown_folding_disabled = 1
+let g:go_fmt_command = "goimports"
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
 
 let s:commenters_left = {
     \   "bashrc": '#',
