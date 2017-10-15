@@ -11,6 +11,14 @@ dpi:
 
 tabspaces: 8
 
+background_opacity: 1.0
+live_config_reload: true
+
+hide_cursor_when_typing: true
+custom_cursor_colors: false
+
+render_timer: false
+
 draw_bold_text_with_bright_colors: true
 
 font:
@@ -20,71 +28,11 @@ font:
     family: Monaco
   italic:
     family: Monaco
-  size: 10.5
+  size: 11.0
   offset:
     x: 0.0
     y: 4.0
   use_thin_strokes: true
-
-render_timer: false
-custom_cursor_colors: false
-hide_cursor_when_typing: true
-
-# Colors (Pro)
-colors:
-  primary:
-    background: '0x000000'
-    foreground: '0xeaeaea'
-  cursor:
-    text:   '0xffffff'
-    cursor: '0x000000'
-  normal:
-    black:   '0x000000'
-    red:     '0x990000'
-    green:   '0x00A600'
-    yellow:  '0x999900'
-    blue:    '0x2040FF'
-    magenta: '0xB200B2'
-    cyan:    '0x00A6B2'
-    white:   '0xBFBFBF'
-  bright:
-    black:   '0x666666'
-    red:     '0xE50000'
-    green:   '0x00D900'
-    yellow:  '0xE5E500'
-    blue:    '0x0000FF'
-    magenta: '0xE500E5'
-    cyan:    '0x00E5E5'
-    white:   '0xE5E5E5'
-
-# Colors (Solarized Dark)
-# colors:
-#   # Default colors
-#   primary:
-#     background: '0x002b36'
-#     foreground: '0x839496'
-#
-#   # Normal colors
-#   normal:
-#     black:   '0x073642'
-#     red:     '0xdc322f'
-#     green:   '0x859900'
-#     yellow:  '0xb58900'
-#     blue:    '0x268bd2'
-#     magenta: '0xd33682'
-#     cyan:    '0x2aa198'
-#     white:   '0xeee8d5'
-#
-#   # Bright colors
-#   bright:
-#     black:   '0x002b36'
-#     red:     '0xcb4b16'
-#     green:   '0x586e75'
-#     yellow:  '0x657b83'
-#     blue:    '0x839496'
-#     magenta: '0x6c71c4'
-#     cyan:    '0x93a1a1'
-#     white:   '0xfdf6e3'
 
 visual_bell:
   duration: 0
@@ -94,11 +42,18 @@ key_bindings:
   - { key: C,        mods: Command, action: Copy                         }
   - { key: Q,        mods: Command, action: Quit                         }
   - { key: W,        mods: Command, action: Quit                         }
+  - { key: Home,                    chars: "\x1bOH",   mode: AppCursor   }
   - { key: Home,                    chars: "\x1b[H",   mode: ~AppCursor  }
-  - { key: Home,                    chars: "\x1b[1~",  mode: AppCursor   }
+  - { key: End,                     chars: "\x1bOF",   mode: AppCursor   }
   - { key: End,                     chars: "\x1b[F",   mode: ~AppCursor  }
-  - { key: End,                     chars: "\x1b[4~",  mode: AppCursor   }
+  - { key: Key0,     mods: Command, action: ResetFontSize                }
+  - { key: Subtract, mods: Command, action: DecreaseFontSize             }
+  - { key: Equals,   mods: Command, action: IncreaseFontSize             }
+  - { key: PageUp,   mods: Shift,   chars: "\x1b[5;2~"                   }
+  - { key: PageUp,   mods: Control, chars: "\x1b[5;5~"                   }
   - { key: PageUp,                  chars: "\x1b[5~"                     }
+  - { key: PageDown, mods: Shift,   chars: "\x1b[6;2~"                   }
+  - { key: PageDown, mods: Control, chars: "\x1b[6;5~"                   }
   - { key: PageDown,                chars: "\x1b[6~"                     }
   - { key: Left,     mods: Shift,   chars: "\x1b[1;2D"                   }
   - { key: Left,     mods: Control, chars: "\x1b[1;5D"                   }
@@ -134,5 +89,84 @@ key_bindings:
   - { key: F11,                     chars: "\x1b[23~"                    }
   - { key: F12,                     chars: "\x1b[24~"                    }
   - { key: Back,                    chars: "\x7f"                        }
-  - { key: Delete,                  chars: "\x1b[3~",  mode: AppKeypad   }
-  - { key: Delete,                  chars: "\x1b[P",   mode: ~AppKeypad  }
+  - { key: Back,     mods: Alt,     chars: "\x1b\x7f"                    }
+  - { key: Insert,                  chars: "\x1b[2~"                     }
+  - { key: Delete,                  chars: "\x1b[3~"                     }
+  - { key: LBracket, mods: Command|Shift, command: { program: "/usr/local/bin/tmux", args: ["prev"] } }
+  - { key: RBracket, mods: Command|Shift, command: { program: "/usr/local/bin/tmux", args: ["next"] } }
+  - { key: Key1,     mods: Command,       command: { program: "/usr/local/bin/tmux", args: ["selectw", "-t", "1"] } }
+  - { key: Key2,     mods: Command,       command: { program: "/usr/local/bin/tmux", args: ["selectw", "-t", "2"] } }
+  - { key: Key3,     mods: Command,       command: { program: "/usr/local/bin/tmux", args: ["selectw", "-t", "3"] } }
+  - { key: Key4,     mods: Command,       command: { program: "/usr/local/bin/tmux", args: ["selectw", "-t", "4"] } }
+  - { key: Key5,     mods: Command,       command: { program: "/usr/local/bin/tmux", args: ["selectw", "-t", "5"] } }
+  - { key: Key6,     mods: Command,       command: { program: "/usr/local/bin/tmux", args: ["selectw", "-t", "6"] } }
+
+color_schemes:
+  low: &low # low brightness (terminal.app pro)
+    primary:
+      background: '0x000000'
+      foreground: '0xeaeaea'
+    normal:
+      black:   '0x000000'
+      red:     '0x990000'
+      green:   '0x00a600'
+      yellow:  '0x999900'
+      blue:    '0x2040ff'
+      magenta: '0xb200b2'
+      cyan:    '0x00a6b2'
+      white:   '0xbfbfbf'
+    bright:
+      black:   '0x666666'
+      red:     '0xe50000'
+      green:   '0x00d900'
+      yellow:  '0xe5e500'
+      blue:    '0x0000ff'
+      magenta: '0xe500e5'
+      cyan:    '0x00e5e5'
+      white:   '0xe5e5e5'
+  mid: &mid # mid brightness (xterm)
+    primary:
+      background: '0x000000'
+      foreground: '0xffffff'
+    normal:
+      black:   '0x000000'
+      red:     '0xcd0000'
+      green:   '0x00cd00'
+      yellow:  '0xcdcd00'
+      blue:    '0x0000ee'
+      magenta: '0xcd00cd'
+      cyan:    '0x00cdcd'
+      white:   '0xe5e5e5'
+    bright:
+      black:   '0x7f7f7f'
+      red:     '0xff0000'
+      green:   '0x00ff00'
+      yellow:  '0xffff00'
+      blue:    '0x5c5cff'
+      magenta: '0xff00ff'
+      cyan:    '0x00ffff'
+      white:   '0xffffff'
+  high: &high # high brightness (hyper)
+    primary:
+      background: '0x000000'
+      foreground: '0xffffff'
+    normal:
+      black:   '0x000000'
+      red:     '0xfe0100'
+      green:   '0x33ff00'
+      yellow:  '0xfeff00'
+      blue:    '0x0066ff'
+      magenta: '0xcc00ff'
+      cyan:    '0x00ffff'
+      white:   '0xd0d0d0'
+    bright:
+      black:   '0x808080'
+      red:     '0xfe0100'
+      green:   '0x33ff00'
+      yellow:  '0xfeff00'
+      blue:    '0x0066ff'
+      magenta: '0xcc00ff'
+      cyan:    '0x00ffff'
+      white:   '0xFFFFFF'
+
+colors: *high
