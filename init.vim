@@ -11,6 +11,7 @@ set ruler
 set mouse=a
 
 let g:vim_markdown_folding_disabled = 1
+let g:rustfmt_autosave = 1
 let g:go_fmt_command = "goimports"
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
@@ -25,9 +26,11 @@ let s:commenters_left = {
     \   "java": '//',
     \   "javascript": '//',
     \   "lua": '--',
+    \   "make": '#',
     \   "matlab": '%',
     \   "perl": '#',
     \   "php": '//',
+    \   "plaintex": '%',
     \   "python": '#',
     \   "rust": '//',
     \   "scala": '//',
@@ -35,6 +38,8 @@ let s:commenters_left = {
     \   "sh": '#',
     \   "tex": '%',
     \   "vim": '"',
+    \   "yml": '#',
+    \   "yaml": '#',
     \ }
 let s:commenters_surround = {
     \   "html": ['<!--', '-->'],
