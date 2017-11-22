@@ -85,19 +85,10 @@ bins:
 vim:
 	mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.config
 	cp init.vim ~/.vim/init.vim
-	curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-	hub clone vim-airline/vim-airline ~/.vim/bundle/vim-airline
-	hub clone tpope/vim-fugitive ~/.vim/bundle/vim-fugitive
-	hub clone airblade/vim-gitgutter ~/.vim/bundle/vim-gitgutter
-	hub clone fatih/vim-go ~/.vim/bundle/vim-go
-	hub clone elzr/vim-json ~/.vim/bundle/vim-json
-	hub clone plasticboy/vim-markdown ~/.vim/bundle/vim-markdown
-	hub clone digitaltoad/vim-pug ~/.vim/bundle/vim-pug
-	hub clone wlangstroth/vim-racket ~/.vim/bundle/vim-racket
-	hub clone rust-lang/rust.vim ~/.vim/bundle/vim-rust
-	hub clone cespare/vim-toml ~/.vim/bundle/vim-toml
+	hub clone VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 	ln -s ~/.vim ~/.config/nvim
 	ln -s ~/.vim/init.vim ~/.vimrc
+	vim --headless +PluginInstall +qa
 
 #############
 ###  gui  ###

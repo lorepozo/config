@@ -1,20 +1,36 @@
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
-autocmd FileType text,tex,mail,markdown,rst set tw=76
-autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
+set nocompatible
 set number rnu
 set expandtab shiftwidth=2 smarttab
 set backspace=indent,eol,start
 set incsearch
-set ruler
 set mouse=a
+syntax on
+filetype plugin indent on
+autocmd FileType text,tex,mail,markdown,rst setlocal tw=76 spell
+autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
+autocmd FileType python setlocal shiftwidth=4
 
-let g:vim_markdown_folding_disabled = 1
-let g:rustfmt_autosave = 1
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'fatih/vim-go'
+Plugin 'elzr/vim-json'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'digitaltoad/vim-pug'
+Plugin 'wlangstroth/vim-racket'
+Plugin 'rust-lang/rust.vim'
+Plugin 'cespare/vim-toml'
+call vundle#end()
+
+let g:airline_theme='simple'
 let g:go_fmt_command = "goimports"
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
+let g:rustfmt_autosave = 1
+let g:vim_markdown_folding_disabled = 1
 
 let s:commenters_left = {
     \   "bashrc": '#',
