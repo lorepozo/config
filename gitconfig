@@ -8,7 +8,7 @@
     lol = log --all --graph --date-order --pretty=format:'%C(yellow)%h%C(bold red)%d%Creset %s %Cgreen{%an} %Cblue%cr%Creset' --abbrev-commit
     l = lol
     a = add
-    am = commit --amend --no-edit
+    amend = !git commit --amend --no-edit --date=\"$(date -R)\"
     b = branch -vv
     c = commit
     co = checkout
