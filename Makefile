@@ -85,7 +85,7 @@ bins:
 vim:
 	mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.config
 	cp init.vim ~/.vim/init.vim
-	hub clone VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	hub clone VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
 	ln -s ~/.vim ~/.config/nvim
 	ln -s ~/.vim/init.vim ~/.vimrc
 	vim --headless +PluginInstall +qa
