@@ -1,0 +1,22 @@
+#!/bin/sh
+api=https://api.pushover.net/1/messages.json
+token=FILL_ME
+user=FILL_ME
+
+(
+if test -z "$2"
+then
+curl -s \
+  --form-string "token=$token" \
+  --form-string "user=$user" \
+  --form-string "message=$1" \
+  $api
+else
+curl -s \
+  --form-string "token=$token" \
+  --form-string "user=$user" \
+  --form-string "title=$1" \
+  --form-string "message=$2" \
+  $api
+fi
+) 2>&1 | jq -c
