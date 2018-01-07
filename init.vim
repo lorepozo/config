@@ -4,6 +4,7 @@ set expandtab shiftwidth=2 smarttab
 set backspace=indent,eol,start
 set incsearch
 set mouse=a
+set hidden
 syntax on
 filetype plugin indent on
 autocmd FileType text,tex,mail,markdown,rst setlocal tw=76 spell
@@ -25,7 +26,7 @@ Plug 'wlangstroth/vim-racket'
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 Plug 'leafgarland/typescript-vim'
-Plug 'autozimu/LanguageClient-neovim', {'tag': 'binary-*-x86_64-apple-darwin'}
+Plug 'autozimu/LanguageClient-neovim', {'tag': 'binary-*-x86_64-unknown-linux-musl'}
 call plug#end()
 
 let g:LanguageClient_autoStart = 0

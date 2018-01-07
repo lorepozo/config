@@ -88,14 +88,15 @@ vim: vim-config vim-langservers
 
 vim-config:
 	mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.config
+	if [ `uname` = "Darwin" ]; then sed -i '' s/unknown-linux-musl/apple-darwin/ init.vim ; fi
 	cp init.vim ~/.vim/init.vim
 	curl https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -sfLo ~/.vim/autoload/plug.vim --create-dirs
 	ln -s ~/.vim ~/.config/nvim
 	ln -s ~/.vim/init.vim ~/.vimrc
-	vim --headless +PlugInstall +UpdateRemotePlugins +qa
+	nvim --headless +PlugInstall +UpdateRemotePlugins +qa
 
 vim-langservers:
-	pip3 install neovim python-language-server
+	sudo pip3 install neovim python-language-server
 	rustup component add rls-preview   --toolchain nightly
 	rustup component add rust-analysis --toolchain nightly
 	rustup component add rust-src      --toolchain nightly
