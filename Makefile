@@ -12,11 +12,12 @@ start: lang lang-util clis service
 	chsh -s /bin/zsh
 
 lang: rust
-	sudo pacman -S python nodejs npm texlive-core
+	sudo pacman -S python go nodejs npm texlive-core
 
 rust:
 	curl https://sh.rustup.rs -sSf | sh
 	rustup update
+	rustup install nightly
 
 lang-util: py
 	sudo pacman -S texlive-latexextra texlive-genericextra
@@ -82,13 +83,23 @@ bins:
 	chmod +x ~/bin/diff-highlight
 	cp bin/* ~/bin/
 
-vim:
+vim: vim-config vim-langservers
+
+vim-config:
 	mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.config
 	cp init.vim ~/.vim/init.vim
-	hub clone VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+	curl https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -sfLo ~/.vim/autoload/plug.vim --create-dirs
 	ln -s ~/.vim ~/.config/nvim
 	ln -s ~/.vim/init.vim ~/.vimrc
-	vim --headless +PluginInstall +qa
+	vim --headless +PlugInstall +UpdateRemotePlugins +qa
+
+vim-langservers:
+	pip3 install neovim python-language-server
+	rustup component add rls-preview   --toolchain nightly
+	rustup component add rust-analysis --toolchain nightly
+	rustup component add rust-src      --toolchain nightly
+	npm i -g javascript-typescript-langserver
+	go get -u github.com/sourcegraph/go-langserver
 
 #############
 ###  gui  ###

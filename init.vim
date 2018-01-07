@@ -9,22 +9,36 @@ filetype plugin indent on
 autocmd FileType text,tex,mail,markdown,rst setlocal tw=76 spell
 autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType python setlocal shiftwidth=4
+autocmd FileType python,rust,javascript,typescript,go LanguageClientStart
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'fatih/vim-go'
-Plugin 'elzr/vim-json'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'digitaltoad/vim-pug'
-Plugin 'wlangstroth/vim-racket'
-Plugin 'rust-lang/rust.vim'
-Plugin 'cespare/vim-toml'
-call vundle#end()
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/vim-plug'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'fatih/vim-go'
+Plug 'elzr/vim-json'
+Plug 'plasticboy/vim-markdown'
+Plug 'digitaltoad/vim-pug'
+Plug 'wlangstroth/vim-racket'
+Plug 'rust-lang/rust.vim'
+Plug 'cespare/vim-toml'
+Plug 'leafgarland/typescript-vim'
+Plug 'autozimu/LanguageClient-neovim', {'tag': 'binary-*-x86_64-apple-darwin'}
+call plug#end()
+
+let g:LanguageClient_autoStart = 0
+let g:LanguageClient_serverCommands = {
+    \ 'python': ['pyls'],
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'typescript': ['javascript-typescript-stdio'],
+    \ 'go': ['go-langserver'] }
+noremap <silent> ,h :call LanguageClient_textDocument_hover()<CR>
+noremap <silent> ,d :call LanguageClient_textDocument_definition()<CR>
+noremap <silent> ,r :call LanguageClient_textDocument_rename()<CR>
+noremap <silent> ,s :call LanugageClient_textDocument_documentSymbol()<CR>
 
 let g:airline_theme='simple'
 let g:go_fmt_command = "goimports"
