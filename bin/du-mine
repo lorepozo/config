@@ -1,0 +1,2 @@
+#!/bin/sh
+(ls -A | tr '\n' '\0' | xargs -0 du -s | sort -g | awk '{print $2}' | tr '\n' '\0' | xargs -0 du -sh) 2>/dev/null
