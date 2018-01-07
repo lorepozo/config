@@ -29,7 +29,7 @@ py:
 	virtualenv ~/py
 
 clis: pacaur
-	sudo pacman -S git hub zsh wget tree tmux gnupg neovim
+	sudo pacman -S git hub zsh wget tree tmux gnupg neovim jq
 	cargo install ripgrep
 
 pacaur:
@@ -64,7 +64,7 @@ mac-py:
 	virtualenv ~/py
 
 mac-clis:
-	brew install hub wget tree tmux neovim reattach-to-user-namespace pass
+	brew install hub wget tree tmux neovim reattach-to-user-namespace pass jq
 	cargo install ripgrep
 
 
