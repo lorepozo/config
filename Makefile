@@ -40,7 +40,7 @@ pacaur:
 	rm -rf cower pacaur
 
 service:
-	sudo pacman -S openssh
+	sudo pacman -S openssh mosh
 	systemctl enable sshd
 
 
@@ -64,7 +64,7 @@ mac-py:
 	virtualenv ~/py
 
 mac-clis:
-	brew install hub wget tree tmux neovim reattach-to-user-namespace pass jq
+	brew install hub wget tree tmux neovim reattach-to-user-namespace pass jq mosh
 	cargo install ripgrep
 
 
