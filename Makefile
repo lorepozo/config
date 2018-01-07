@@ -26,7 +26,7 @@ py:
 	sudo pacman -S ipython python-pip python-virtualenv
 	pip install --upgrade pip # arch repo can be outdated
 	pip install ptpython
-	virtualenv ~/py
+	virtualenv ~/.py
 
 clis: pacaur
 	sudo pacman -S git hub zsh wget tree tmux gnupg neovim jq
