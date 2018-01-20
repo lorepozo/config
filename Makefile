@@ -16,8 +16,8 @@ lang: rust
 
 rust:
 	curl https://sh.rustup.rs -sSf | sh
-	rustup update
-	rustup install nightly
+	~/.cargo/bin/rustup update
+	~/.cargo/bin/rustup install nightly
 
 lang-util: py
 	sudo pacman -S texlive-latexextra texlive-genericextra
@@ -25,7 +25,7 @@ lang-util: py
 py:
 	sudo pacman -S ipython python-pip python-virtualenv
 	pip install --upgrade pip # arch repo can be outdated
-	pip install ptpython
+	sudo pip install ptpython
 	virtualenv ~/.py
 
 clis: pacaur
@@ -61,7 +61,7 @@ mac-lang: mac-py rust
 mac-py:
 	brew install python3
 	pip3 install virtualenv ipython ptpython
-	virtualenv ~/py
+	virtualenv ~/.py
 
 mac-clis:
 	brew install hub wget tree tmux neovim reattach-to-user-namespace pass jq mosh
@@ -72,10 +72,15 @@ mac-clis:
 ### files ###
 #############
 
-files: bins vim
-	hub clone --recursive lucasem/zsh ~/.zsh && ln -s ~/.zsh/zshrc ~/.zshrc
+files: sh bins vim
 	cp gitconfig ~/.gitconfig
 	cp tmux.conf ~/.tmux.conf
+
+sh:
+	hub clone --recursive lucasem/zsh ~/.zsh && ln -s ~/.zsh/zshrc ~/.zshrc
+	echo "source ~/.zsh/aliases.zsh" >>~/.bashrc
+	echo "source ~/.zsh/environment.zsh" >>~/.bashrc
+	source ~/.bashrc
 
 bins:
 	mkdir -p ~/bin
@@ -96,7 +101,8 @@ vim-config:
 	nvim --headless +PlugInstall +UpdateRemotePlugins +qa
 
 vim-langservers:
-	sudo pip3 install neovim python-language-server
+	source ~/.py/bin/activate
+	pip install neovim python-language-server
 	rustup component add rls-preview   --toolchain nightly
 	rustup component add rust-analysis --toolchain nightly
 	rustup component add rust-src      --toolchain nightly
