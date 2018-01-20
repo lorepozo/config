@@ -1,16 +1,18 @@
 set nocompatible
-set number rnu
-set expandtab shiftwidth=2 smarttab
-set backspace=indent,eol,start
-set incsearch
-set mouse=a
-set hidden
 syntax on
 filetype plugin indent on
 autocmd FileType text,tex,mail,markdown,rst setlocal tw=76 spell
 autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType python setlocal shiftwidth=4
-autocmd FileType python,rust,javascript,typescript,go LanguageClientStart
+" autocmd FileType python,rust,javascript,typescript,go LanguageClientStart
+set number rnu
+set expandtab shiftwidth=2 smarttab
+set backspace=indent,eol,start
+set incsearch
+set ruler
+set mouse=a
+set hidden
+set fillchars+=vert:\ 
 
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
@@ -32,20 +34,22 @@ call plug#end()
 let g:LanguageClient_autoStart = 0
 let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'rust': ['rustup', 'run', 'nightly-2018-01-20', 'rls'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'typescript': ['javascript-typescript-stdio'],
     \ 'go': ['go-langserver'] }
 noremap <silent> ,h :call LanguageClient_textDocument_hover()<CR>
 noremap <silent> ,d :call LanguageClient_textDocument_definition()<CR>
 noremap <silent> ,r :call LanguageClient_textDocument_rename()<CR>
-noremap <silent> ,s :call LanugageClient_textDocument_documentSymbol()<CR>
+noremap <silent> ,s :call LanguageClient_textDocument_documentSymbol()<CR>
+noremap <silent> ,! :LanguageClientStart<CR>
 
 let g:airline_theme='simple'
 let g:go_fmt_command = "goimports"
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:rustfmt_autosave = 1
+let g:rustfmt_command = 'rustup run nightly-2018-01-20 rustfmt'
 let g:vim_markdown_folding_disabled = 1
 
 let s:commenters_left = {
@@ -69,6 +73,7 @@ let s:commenters_left = {
     \   "scheme": ';',
     \   "sh": '#',
     \   "tex": '%',
+    \   "toml": '#',
     \   "vim": '"',
     \   "yml": '#',
     \   "yaml": '#',
