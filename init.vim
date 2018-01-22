@@ -1,7 +1,8 @@
 set nocompatible
 syntax on
 filetype plugin indent on
-autocmd FileType text,tex,mail,markdown,rst setlocal tw=76 spell
+autocmd FileType text,tex,mail,markdown,rst setlocal tw=76
+autocmd FileType tex,mail,markdown,rst setlocal spell
 autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType python setlocal shiftwidth=4
 " autocmd FileType python,rust,javascript,typescript,go LanguageClientStart
@@ -13,6 +14,10 @@ set ruler
 set mouse=a
 set hidden
 set fillchars+=vert:\ 
+
+if has('nvim')
+  autocmd TermOpen * setlocal nonumber nornu
+endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
