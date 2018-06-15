@@ -1,0 +1,40 @@
+#!/bin/sh
+# only works on linux
+
+print_usage () {
+  >&2 cat <<< "Usage: $(basename $0) [-h | -s] (PID | NAME)
+     PID      waits for the given process
+     NAME     waits for ALL processes with the given name
+-h, --help    bring up this help message
+-s SECONDS    specify the time between polls
+"
+}
+
+if [ -z "$1" ]
+then print_usage ; exit 1
+fi
+
+if [ $1 = -h ] || [ $1 = --help ]
+then print_usage ; exit 0
+fi
+
+s=1 # time between polls
+if [ $1 = -s ]
+then s=$2
+  shift ; shift
+fi
+
+# if pid, wait for it.
+# if name, wait for every proc with that name
+if [ $1 -ge 0 ] &>/dev/null
+then while [ -d /proc/$1 ]
+  do sleep $s
+  done
+else
+  ps -C "$1" | awk '{print $1}' | tail -n+2 \
+  | while read pid
+  do $0 -s $s $pid
+  done
+fi
+
+exit 0
