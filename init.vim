@@ -79,7 +79,7 @@ noremap <silent> ,r :call LanguageClient_textDocument_rename()<CR>
 noremap <silent> ,s :call LanguageClient_textDocument_documentSymbol()<CR>
 noremap <silent> ,! :LanguageClientStart<CR>
 
-let g:airline_theme='simple'
+let g:airline_theme = "simple"
 let g:go_fmt_command = "goimports"
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
