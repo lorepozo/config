@@ -101,11 +101,8 @@ vim-config:
 	nvim --headless +PlugInstall +UpdateRemotePlugins +qa
 
 vim-langservers:
-	source ~/.py/bin/activate
-	pip install neovim python-language-server
-	rustup install nightly-2018-01-20
-	rustup run nightly-2018-01-20 cargo install rustfmt-nightly
-	rustup component add rls-preview rust-analysis rust-src --toolchain nightly-2018-01-20
+	sudo pip3 install neovim python-language-server
+	rustup component add rls-preview rust-analysis rust-src
 	npm i -g javascript-typescript-langserver
 	go get -u github.com/sourcegraph/go-langserver
 	cp language_client_settings.json ~/.vim/language_client_settings.json
