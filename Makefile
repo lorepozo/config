@@ -108,6 +108,7 @@ vim-langservers:
 	rustup component add rls-preview rust-analysis rust-src --toolchain nightly-2018-01-20
 	npm i -g javascript-typescript-langserver
 	go get -u github.com/sourcegraph/go-langserver
+	cp language_client_settings.json ~/.vim/language_client_settings.json
 
 #############
 ###  gui  ###
