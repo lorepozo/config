@@ -18,6 +18,7 @@ rust:
 	curl https://sh.rustup.rs -sSf | sh
 	~/.cargo/bin/rustup update
 	~/.cargo/bin/rustup install nightly
+	~/.cargo/bin/rustup component add rustfmt-preview
 
 lang-util: py
 	sudo pacman -S texlive-latexextra texlive-genericextra
