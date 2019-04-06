@@ -25,10 +25,13 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'FStarLang/VimFStar', {'for': 'fstar'}
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'fatih/vim-go'
+Plug 'junegunn/goyo.vim'
 Plug 'elzr/vim-json'
+Plug 'junegunn/limelight.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'scrooloose/nerdcommenter'
 Plug 'digitaltoad/vim-pug'
@@ -73,12 +76,15 @@ let g:LanguageClient_diagnosticsDisplay = {
     \         "signTexthl": "ALEInfoSign",
     \     },
     \ }
-noremap <silent> ,h :call LanguageClient_textDocument_hover()<CR>
+noremap <silent> ,x :call LanguageClient_contextMenu()<CR>
 noremap <silent> ,d :call LanguageClient_textDocument_definition()<CR>
+noremap <silent> ,, :call LanguageClient_textDocument_hover()<CR>
+noremap <silent> ,u :call LanguageClient_textDocument_references()<CR>
 noremap <silent> ,r :call LanguageClient_textDocument_rename()<CR>
 noremap <silent> ,s :call LanguageClient_textDocument_documentSymbol()<CR>
 noremap <silent> ,! :LanguageClientStart<CR>
 
+colorscheme lucas
 let g:airline_theme = "simple"
 let g:go_fmt_command = "goimports"
 let g:go_highlight_methods = 1
@@ -86,6 +92,8 @@ let g:go_highlight_operators = 1
 let g:NERDSpaceDelims = 1
 let g:rustfmt_autosave = 1
 let g:vim_markdown_folding_disabled = 1
+let g:limelight_conceal_ctermfg = 'darkgrey'
+let g:limelight_conceal_guifg = 'darkgrey'
 
 inoremap <S-Tab> <C-V><Tab>
 noremap <C-a> 0

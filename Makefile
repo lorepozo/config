@@ -42,7 +42,7 @@ pacaur:
 
 service:
 	sudo pacman -S openssh mosh
-	systemctl enable sshd
+	sudo systemctl enable sshd
 
 
 #################
@@ -78,6 +78,7 @@ files: sh bins vim
 	cp tmux.conf ~/.tmux.conf
 
 sh:
+	hub config --global hub.protocol https
 	hub clone --recursive lucasem/zsh ~/.zsh && ln -s ~/.zsh/zshrc ~/.zshrc
 	echo "source ~/.zsh/aliases.zsh" >>~/.bashrc
 	echo "source ~/.zsh/environment.zsh" >>~/.bashrc
@@ -93,10 +94,11 @@ bins:
 vim: vim-config vim-langservers
 
 vim-config:
-	mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.config
+	mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/.config
 	if [ `uname` = "Darwin" ]; then sed -i '' s/unknown-linux-musl/apple-darwin/ init.vim ; fi
 	cp init.vim ~/.vim/init.vim
-	curl https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -sfLo ~/.vim/autoload/plug.vim --create-dirs
+	cp colors.vim ~/.vim/colors/lucas.vim
+	curl -LSso ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	ln -s ~/.vim ~/.config/nvim
 	ln -s ~/.vim/init.vim ~/.vimrc
 	nvim --headless +PlugInstall +UpdateRemotePlugins +qa
