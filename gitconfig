@@ -6,13 +6,17 @@
     gpgsign = true
 [alias]
     lol = log --all --graph --date-order --pretty=format:'%C(yellow)%h%C(bold red)%d%Creset %s %Cgreen{%an} %Cblue%cr%Creset' --abbrev-commit
+    lob = log               --date-order --pretty=format:'%C(yellow)%h%C(bold red)%d%Creset %s %Cgreen{%an} %Cblue%cr%Creset' --abbrev-commit
     l = lol
+    lat = !git fetch -a && git checkout origin/master
     a = add
     amend = !git commit --amend --no-edit --date=\"$(date -R)\"
     b = branch -vv
+    bmv = !git-bmv
     c = commit
     co = checkout
     cp = cherry-pick
+    cpr = !git-cpr
     d = diff
     da = diff -U99999
     del = !git-del

@@ -1,0 +1,65 @@
+#!/bin/sh
+#############################
+###  BMV = "Branch move"  ###
+#############################
+
+set -e
+
+branch=
+dry_run=0
+c=0 # positional argument counter
+
+usage () {
+  >&2 cat <<EOF
+Usage: `basename $0` [options] BRANCH
+
+BRANCH   The branch that should be moved to HEAD
+
+options:
+  -d, --dry-run    Print the operations that would be performed, rather than
+                   actually performing them.
+EOF
+  exit 1
+}
+
+assert_valid_branch() {
+  b="$1"
+  if [ $b = "" ]
+  then usage
+  elif ! git branch | sed 's_^.\{0,1\}  *__' | grep -q "^$b$"
+  then >&2 echo "invalid branch: $b"
+  fi
+}
+
+dry() {
+  if [ $dry_run -gt 0 ]
+  then echo $@
+  else $@
+  fi
+}
+
+while [ $# -gt 0 ]
+do
+  case "$1" in
+    -d|--dry|--dry-run)
+      dry_run=1
+      shift
+      ;;
+    --help)
+      usage
+      ;;
+    *)
+      c=$((c+1))
+      if [ $c -eq 1 ]
+      then branch="$1"
+      else usage
+      fi
+      shift
+      ;;
+  esac
+done
+
+assert_valid_branch "$branch"
+
+dry git branch -D $branch
+dry git checkout -b $branch
