@@ -31,7 +31,7 @@ py:
 
 clis: pacaur
 	sudo pacman -S git hub zsh wget tree tmux gnupg neovim jq
-	cargo install ripgrep
+	~/.cargo/bin/cargo install ripgrep
 
 pacaur:
 	git clone https://aur.archlinux.org/cower.git
@@ -49,7 +49,7 @@ service:
 ### mac-start ###
 #################
 
-mac-start: brew mac-lang mac-clis alacritty
+mac-start: brew mac-lang mac-clis mac-alacritty
 	chsh -s /bin/zsh
 
 brew:
@@ -66,7 +66,10 @@ mac-py:
 
 mac-clis:
 	brew install hub wget tree tmux neovim reattach-to-user-namespace pass jq mosh
-	cargo install ripgrep
+	~/.cargo/bin/cargo install ripgrep
+
+mac-alacritty:
+	brew cask install alacritty
 
 
 #############
@@ -76,6 +79,7 @@ mac-clis:
 files: sh bins vim
 	cp gitconfig ~/.gitconfig
 	cp tmux.conf ~/.tmux.conf
+	mkdir -p ~/.config/alacritty && cp alacritty.yml ~/.config/alacritty/alacritty.yml
 
 sh:
 	hub config --global hub.protocol https
@@ -105,9 +109,9 @@ vim-config:
 
 vim-langservers:
 	sudo pip3 install neovim python-language-server
-	rustup component add rls-preview rust-analysis rust-src
-	npm i -g javascript-typescript-langserver
-	go get -u github.com/sourcegraph/go-langserver
+	~/.cargo/bin/rustup component add rls rust-analysis rust-src
+	#npm i -g javascript-typescript-langserver
+	#go get -u github.com/sourcegraph/go-langserver
 	cp language_client_settings.json ~/.vim/language_client_settings.json
 
 #############
@@ -161,10 +165,4 @@ applications: alacritty
 	pacaur -S slack-beta
 
 alacritty:
-	hub clone jwilm/alacritty
-	cd alacritty && cargo build --release
-	mkdir -p /usr/local/bin
-	sudo mv alacritty/target/release/alacritty /usr/local/bin/alacritty
-	rm -rf alacritty
-	mkdir -p ~/.config/alacritty
-	cp alacritty.yml ~/.config/alacritty/alacritty.yml
+	pacman -S alacritty
