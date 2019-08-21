@@ -93,11 +93,14 @@ let g:NERDSpaceDelims = 1
 let g:rustfmt_autosave = 1
 let g:vim_markdown_folding_disabled = 1
 let g:limelight_conceal_ctermfg = 'darkgrey'
-let g:limelight_conceal_guifg = 'darkgrey'
+let g:goyo_width = '90%'
+let g:goyo_height = '88%'
 
 inoremap <S-Tab> <C-V><Tab>
 noremap <C-a> 0
 noremap <C-e> $
+command MyGoyo :Goyo | :Limelight!!
+noremap = :MyGoyo<CR>
 command M :w | :make
 noremap M :M<CR>
 noremap W :w<CR>
