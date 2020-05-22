@@ -9,7 +9,7 @@ set hidden
 set fillchars+=vert:\ 
 syntax on
 filetype plugin indent on
-autocmd FileType tex,mail,markdown,rst setlocal spell
+autocmd FileType text,tex,mail,markdown,rst setlocal spell
 autocmd FileType text,tex,markdown,rst setlocal tw=76
 autocmd FileType mail setlocal tw=0
 autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
@@ -39,6 +39,7 @@ Plug 'wlangstroth/vim-racket'
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 Plug 'leafgarland/typescript-vim'
+Plug 'mbbill/undotree'
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 call plug#end()
 
@@ -49,7 +50,6 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'typescript': ['javascript-typescript-stdio'],
     \ 'go': ['go-langserver'] }
-let g:LanguageClient_settingsPath = '~/.vim/language_client_settings.json'
 let g:LanguageClient_diagnosticsDisplay = {
     \     1: {
     \         "name": "Error",
@@ -76,11 +76,10 @@ let g:LanguageClient_diagnosticsDisplay = {
     \         "signTexthl": "ALEInfoSign",
     \     },
     \ }
-noremap <silent> ,x :call LanguageClient_contextMenu()<CR>
+noremap <silent> ,h :call LanguageClient_textDocument_hover()<CR>
 noremap <silent> ,d :call LanguageClient_textDocument_definition()<CR>
-noremap <silent> ,, :call LanguageClient_textDocument_hover()<CR>
-noremap <silent> ,u :call LanguageClient_textDocument_references()<CR>
-noremap <silent> ,r :call LanguageClient_textDocument_rename()<CR>
+noremap <silent> ,r :call LanguageClient_textDocument_references()<CR>
+noremap <silent> ,n :call LanguageClient_textDocument_rename()<CR>
 noremap <silent> ,s :call LanguageClient_textDocument_documentSymbol()<CR>
 noremap <silent> ,! :LanguageClientStart<CR>
 
@@ -97,7 +96,6 @@ let g:goyo_width = '90%'
 let g:goyo_height = '88%'
 
 inoremap <S-Tab> <C-V><Tab>
-noremap <C-a> 0
 noremap <C-e> $
 command MyGoyo :Goyo | :Limelight!!
 noremap = :MyGoyo<CR>
@@ -106,3 +104,4 @@ noremap M :M<CR>
 noremap W :w<CR>
 noremap <C-c> :call NERDComment(0, 'toggle')<CR>
 vnoremap <C-c> :call NERDComment(1, 'minimal')<CR>
+noremap <silent> ,u :UndotreeToggle<CR>

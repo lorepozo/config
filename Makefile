@@ -29,19 +29,15 @@ py:
 	sudo pip install ptpython
 	virtualenv ~/.py
 
-clis: pacaur
-	sudo pacman -S git hub zsh wget tree tmux gnupg neovim jq
-	~/.cargo/bin/cargo install ripgrep
+clis: trizen
+	sudo pacman -S git hub zsh mosh tmux gnupg neovim pass jq exa fd ripgrep
 
-pacaur:
-	git clone https://aur.archlinux.org/cower.git
-	cd cower && makepkg -si
-	git clone https://aur.archlinux.org/pacaur.git
-	cd pacaur && makepkg -si
-	rm -rf cower pacaur
+trizen:
+	git clone https://aur.archlinux.org/trizen.git
+	cd trizen && makepkg -si
 
 service:
-	sudo pacman -S openssh mosh
+	sudo pacman -S openssh
 	sudo systemctl enable sshd
 
 
@@ -65,8 +61,8 @@ mac-py:
 	virtualenv ~/.py
 
 mac-clis:
-	brew install hub wget tree tmux neovim reattach-to-user-namespace pass jq mosh
-	~/.cargo/bin/cargo install ripgrep
+	brew install hub mosh tmux neovim pass jq exa fd ripgrep
+	brew install reattach-to-user-namespace 
 
 mac-alacritty:
 	brew cask install alacritty
@@ -160,9 +156,6 @@ xmonad:
 	mkdir -p ~/.config/rofi
 	cp rofi.config ~/.config/rofi/config
 
-applications: alacritty
+applications:
 	sudo pacman -S firefox
-	pacaur -S slack-beta
-
-alacritty:
-	pacman -S alacritty
+	sudo pacman -S alacritty

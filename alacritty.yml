@@ -1,18 +1,15 @@
-env:
-  TERM: xterm-256color
-
 window:
   dimensions:
     columns: 221
     lines: 53
-  decorations: true
+  decorations: full
 
-tabspaces: 8
 
 background_opacity: 1.0
 live_config_reload: true
 
-hide_cursor_when_typing: true
+mouse:
+  hide_when_typing: true
 
 draw_bold_text_with_bright_colors: true
 
@@ -22,10 +19,8 @@ font:
   italic: { family: Menlo }
   offset: { x: 0, y: 4 }
   size: 11.0
-  use_thin_strokes: true
 
 visual_bell: { duration: 0 }
-mouse: { faux_scrollback_lines: 1 }
 
 my_color_schemes:
   low: &low # low brightness (terminal.app pro)
