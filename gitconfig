@@ -1,33 +1,36 @@
 [user]
-    name = Lucas Morales
-    email = lucas@lucasem.com
-    signingkey = AB31E959F7559E19
+    name = Lore Anaya Pozo
+    email = lore.a.pozo@outlook.com
+    signingkey = 66203BDFF494F233
 [commit]
     gpgsign = true
 [alias]
     lol = log --all --graph --date-order --pretty=format:'%C(yellow)%h%C(bold red)%d%Creset %s %Cgreen{%an} %Cblue%cr%Creset' --abbrev-commit
     lob = log               --date-order --pretty=format:'%C(yellow)%h%C(bold red)%d%Creset %s %Cgreen{%an} %Cblue%cr%Creset' --abbrev-commit
     l = lol
-    lat = !git fetch -a && git checkout origin/master
+    lat = !git fetch --all && git checkout origin/master
     a = add
     amend = !git commit --amend --no-edit --date=\"$(date -R)\"
     b = branch -vv
-    bmv = !git-bmv
     c = commit
     co = checkout
+    cod = checkout -B
     cp = cherry-pick
+    # cpr = "cherry-pick rebase" for rebasing target atop HEAD in single-commit workflows
     cpr = !git-cpr
+    #cpr = "!cpr() { git co --detach && git cp $1 && git cod $1 || echo \"cherry-pick failed, you must run 'git cod $1' after resolving.\" }; cpr"
     d = diff
     da = diff -U99999
     del = !git-del
     ds = diff --staged
-    f = fetch
+    f = fetch --all
     nb = !git-nb
     o = checkout
     r = rebase
     s = status
 [core]
     pager = diff-highlight | less --tabs=4 -RFX
+    editor = vim
     excludesfile = ~/.gitignore
 [color]
     ui = true
@@ -35,3 +38,5 @@
     compactionHeuristic = true
 [pull]
     rebase = true
+[advice]
+    detachedHead = false

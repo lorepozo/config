@@ -1,17 +1,15 @@
 window:
   dimensions:
-    columns: 221
-    lines: 53
-  decorations: full
+    columns: 270
+    lines: 70
+  decorations: full # none # full # transparent
+  opacity: 1.0
 
-
-background_opacity: 1.0
 live_config_reload: true
 
 mouse:
   hide_when_typing: true
-
-draw_bold_text_with_bright_colors: true
+  faux_scrollback_lines: 1
 
 font:
   normal: { family: Menlo }
@@ -20,7 +18,9 @@ font:
   offset: { x: 0, y: 4 }
   size: 11.0
 
-visual_bell: { duration: 0 }
+draw_bold_text_with_bright_colors: true
+
+bell: { duration: 0 }
 
 my_color_schemes:
   low: &low # low brightness (terminal.app pro)
@@ -148,7 +148,7 @@ key_bindings:
   - { key: End,                     chars: "\x1bOF",   mode: AppCursor   }
   - { key: End,                     chars: "\x1b[F",   mode: ~AppCursor  }
   - { key: Key0,     mods: Command, action: ResetFontSize                }
-  - { key: Subtract, mods: Command, action: DecreaseFontSize             }
+  - { key: Minus,    mods: Command, action: DecreaseFontSize             }
   - { key: Equals,   mods: Command, action: IncreaseFontSize             }
   - { key: PageUp,   mods: Shift,   chars: "\x1b[5;2~"                   }
   - { key: PageUp,   mods: Control, chars: "\x1b[5;5~"                   }

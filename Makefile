@@ -30,7 +30,7 @@ py:
 	virtualenv ~/.py
 
 clis: trizen
-	sudo pacman -S git hub zsh mosh tmux gnupg neovim pass jq exa fd ripgrep
+	sudo pacman -S git hub zsh mosh tmux gnupg pass jq exa fd ripgrep
 
 trizen:
 	git clone https://aur.archlinux.org/trizen.git
@@ -61,8 +61,7 @@ mac-py:
 	virtualenv ~/.py
 
 mac-clis:
-	brew install hub mosh tmux neovim pass jq exa fd ripgrep
-	brew install reattach-to-user-namespace 
+	brew install hub mosh tmux pass jq exa fd ripgrep
 
 mac-alacritty:
 	brew cask install alacritty
@@ -97,14 +96,13 @@ vim-config:
 	mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/.config
 	if [ `uname` = "Darwin" ]; then sed -i '' s/unknown-linux-musl/apple-darwin/ init.vim ; fi
 	cp init.vim ~/.vim/init.vim
-	cp colors.vim ~/.vim/colors/lucas.vim
+	cp colors.vim ~/.vim/colors/lore.vim
 	curl -LSso ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	ln -s ~/.vim ~/.config/nvim
 	ln -s ~/.vim/init.vim ~/.vimrc
-	nvim --headless +PlugInstall +UpdateRemotePlugins +qa
+	vim -c PlugUpgrade -c PlugInstall -c PlugUpdate -c qa
 
 vim-langservers:
-	sudo pip3 install neovim python-language-server
+	sudo pip3 install python-language-server
 	~/.cargo/bin/rustup component add rls rust-analysis rust-src
 	#npm i -g javascript-typescript-langserver
 	#go get -u github.com/sourcegraph/go-langserver
