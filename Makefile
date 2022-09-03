@@ -45,7 +45,7 @@ service:
 ### mac-start ###
 #################
 
-mac-start: brew mac-lang mac-clis mac-alacritty
+mac-start: brew mac-lang mac-clis mac-alacritty mac-hammerspoon
 	chsh -s /bin/zsh
 
 brew:
@@ -65,6 +65,11 @@ mac-clis:
 
 mac-alacritty:
 	brew cask install alacritty
+
+mac-hammerspoon:
+	brew install hammerspoon
+	mkdir -p ~/.hammerspoon
+	cp hammerspoon.lua ~/.hammerspoon/init.lua
 
 
 #############
