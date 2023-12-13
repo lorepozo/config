@@ -117,11 +117,11 @@ colors: *high
 key_bindings:
   - { key: F2, mods: Control, command: {
         program: "/usr/bin/sed",
-        args: ["-i", "", "s%^colors: .*$%colors: *high%", "/Users/lucasem/.config/alacritty/alacritty.yml"]
+        args: ["-i", "", "s%^colors: .*$%colors: *high%", "/Users/lore/.config/alacritty/alacritty.yml"]
     } }
   - { key: F2, mods: Control|Shift, command: {
         program: "/usr/bin/sed",
-        args: ["-i", "", "s%^colors: .*$%colors: *white%", "/Users/lucasem/.config/alacritty/alacritty.yml"]
+        args: ["-i", "", "s%^colors: .*$%colors: *white%", "/Users/lore/.config/alacritty/alacritty.yml"]
     } }
   - { key: Key9,     mods: Command|Shift, command: { program: "/usr/local/bin/tmux", args: ["send-keys", "C-b", "p"] } }
   - { key: Key0,     mods: Command|Shift, command: { program: "/usr/local/bin/tmux", args: ["send-keys", "C-b", "n"] } }

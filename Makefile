@@ -30,7 +30,7 @@ py:
 	virtualenv ~/.py
 
 clis: trizen
-	sudo pacman -S git hub zsh mosh tmux gnupg pass jq exa fd ripgrep
+	sudo pacman -S git zsh mosh tmux gnupg pass jq exa fd ripgrep
 
 trizen:
 	git clone https://aur.archlinux.org/trizen.git
@@ -61,7 +61,7 @@ mac-py:
 	virtualenv ~/.py
 
 mac-clis:
-	brew install hub mosh tmux pass jq exa fd ripgrep
+	brew install mosh tmux pass jq exa fd ripgrep
 
 mac-alacritty:
 	brew cask install alacritty
@@ -82,8 +82,7 @@ files: sh bins vim
 	mkdir -p ~/.config/alacritty && cp alacritty.yml ~/.config/alacritty/alacritty.yml
 
 sh:
-	hub config --global hub.protocol https
-	hub clone --recursive lucasem/zsh ~/.zsh && ln -s ~/.zsh/zshrc ~/.zshrc
+	git clone --recursive https://github.com/lorepozo/zsh ~/.zsh && ln -s ~/.zsh/zshrc ~/.zshrc
 	echo "source ~/.zsh/aliases.zsh" >>~/.bashrc
 	echo "source ~/.zsh/environment.zsh" >>~/.bashrc
 	source ~/.bashrc
@@ -91,7 +90,7 @@ sh:
 bins:
 	mkdir -p ~/bin
 	curl -LSso ~/bin/diff-highlight http://github.com/git/git/raw/3dbfe2b8ae94cbdae5f3d32581aedaa5510fdc87/contrib/diff-highlight/diff-highlight
-	curl -LSso ~/bin/tobase https://raw.githubusercontent.com/lucasem/tobase/master/tobase
+	curl -LSso ~/bin/tobase https://raw.githubusercontent.com/lorepozo/tobase/master/tobase
 	chmod +x ~/bin/diff-highlight ~/bin/tobase
 	cp bin/* ~/bin/
 
@@ -108,7 +107,7 @@ vim-config:
 
 vim-langservers:
 	sudo pip3 install python-language-server
-	~/.cargo/bin/rustup component add rls rust-analysis rust-src
+	~/.cargo/bin/rustup component add rust-src rust-analyzer
 	#npm i -g javascript-typescript-langserver
 	#go get -u github.com/sourcegraph/go-langserver
 	cp language_client_settings.json ~/.vim/language_client_settings.json
