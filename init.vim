@@ -40,48 +40,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 Plug 'leafgarland/typescript-vim'
 Plug 'mbbill/undotree'
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 call plug#end()
-
-let g:LanguageClient_autoStart = 0
-let g:LanguageClient_serverCommands = {
-    \ 'python': ['pyls'],
-    \ 'rust': ['rls'],
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'typescript': ['javascript-typescript-stdio'],
-    \ 'go': ['go-langserver'] }
-let g:LanguageClient_diagnosticsDisplay = {
-    \     1: {
-    \         "name": "Error",
-    \         "texthl": "ALEError",
-    \         "signText": "E",
-    \         "signTexthl": "ALEErrorSign",
-    \     },
-    \     2: {
-    \         "name": "Warning",
-    \         "texthl": "ALEWarning",
-    \         "signText": "W",
-    \         "signTexthl": "ALEWarningSign",
-    \     },
-    \     3: {
-    \         "name": "Information",
-    \         "texthl": "ALEInfo",
-    \         "signText": "I",
-    \         "signTexthl": "ALEInfoSign",
-    \     },
-    \     4: {
-    \         "name": "Hint",
-    \         "texthl": "ALEInfo",
-    \         "signText": "➤",
-    \         "signTexthl": "ALEInfoSign",
-    \     },
-    \ }
-noremap <silent> ,h :call LanguageClient_textDocument_hover()<CR>
-noremap <silent> ,d :call LanguageClient_textDocument_definition()<CR>
-noremap <silent> ,r :call LanguageClient_textDocument_references()<CR>
-noremap <silent> ,n :call LanguageClient_textDocument_rename()<CR>
-noremap <silent> ,s :call LanguageClient_textDocument_documentSymbol()<CR>
-noremap <silent> ,! :LanguageClientStart<CR>
 
 colorscheme lore
 let g:airline_theme = "simple"
