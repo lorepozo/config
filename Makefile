@@ -30,7 +30,7 @@ py:
 	virtualenv ~/.py
 
 clis: trizen
-	sudo pacman -S git zsh mosh tmux zellij gnupg pass jq exa sd bat fd ripgrep
+	sudo pacman -S git zsh mosh tmux zellij gnupg pass jq exa sd bat fd ripgrep git-delta
 
 trizen:
 	git clone https://aur.archlinux.org/trizen.git
@@ -61,7 +61,7 @@ mac-py:
 	virtualenv ~/.py
 
 mac-clis:
-	brew install mosh tmux zellij pass jq exa sd bat fd ripgrep
+	brew install mosh tmux zellij pass jq exa sd bat fd ripgrep git-delta
 
 mac-alacritty:
 	brew cask install alacritty
@@ -91,12 +91,11 @@ sh:
 
 bins:
 	mkdir -p ~/bin
-	curl -LSso ~/bin/diff-highlight http://github.com/git/git/raw/3dbfe2b8ae94cbdae5f3d32581aedaa5510fdc87/contrib/diff-highlight/diff-highlight
 	curl -LSso ~/bin/tobase https://raw.githubusercontent.com/lorepozo/tobase/master/tobase
-	chmod +x ~/bin/diff-highlight ~/bin/tobase
+	chmod +x ~/bin/tobase
 	cp bin/* ~/bin/
 
-vim: vim-config vim-langservers
+vim: vim-config # vim-langservers
 
 vim-config:
 	mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/.config

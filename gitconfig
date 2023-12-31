@@ -16,22 +16,23 @@
     co = checkout
     cod = checkout -B
     cp = cherry-pick
-    # cpr = "cherry-pick rebase" for rebasing target atop HEAD in single-commit workflows
+    # cpr = "cherry-pick rebase" (for rebasing target branch atop HEAD in single-commit workflows)
     cpr = !git-cpr
-    #cpr = "!cpr() { git co --detach && git cp $1 && git cod $1 || echo \"cherry-pick failed, you must run 'git cod $1' after resolving.\" }; cpr"
+    #cpr = "!cpr() { git co --detach && git cp $1 && git cod $1 || echo 'cherry-pick failed, you must run git cod '$1' after resolving.' }; cpr"
     d = diff
-    da = diff -U99999
     del = !git-del
     ds = diff --staged
     f = fetch --all
     nb = !git-nb
     o = checkout
     r = rebase
-    s = status
+    s = status # -uno
+    ss = status
+    swatch = !watch -c -n 10 git -c color.status=always status
 [core]
-    pager = diff-highlight | less --tabs=4 -RFX
+    pager = delta --diff-so-fancy
     editor = vim
-    excludesfile = ~/.gitignore
+    excludesFiles = ~/.gitignore
 [color]
     ui = true
 [diff]
@@ -40,3 +41,5 @@
     rebase = true
 [advice]
     detachedHead = false
+[merge]
+    conflictstyle = diff3

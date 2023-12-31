@@ -9,7 +9,7 @@ option_as_alt = "Both"
 startup_mode = "SimpleFullscreen"
 
 [font]
-size = 11.0
+size = 11.0 #font.size
 offset = { x = 0, y = 4 }
 
 [colors]
@@ -38,6 +38,14 @@ yellow = "0xfeff00"
 
 [keyboard]
 bindings = [
+  { key="P", mods="Command", command = {
+        program = "/usr/bin/sed",
+        args = ["-i", "", "s%^size = .... #font.size$%size = 40.0 #font.size%", "/Users/lore/.config/alacritty/alacritty.toml"]
+  } },
+  { key="P", mods="Command|Shift", command = {
+        program = "/usr/bin/sed",
+        args = ["-i", "", "s%^size = .... #font.size$%size = 11.0 #font.size%", "/Users/lore/.config/alacritty/alacritty.toml"]
+  } },
   { key="`", mods="Control", command={ program="/opt/homebrew/bin/zellij", args=["ac", "switch-mode", "pane"] } },
   { key="Tab", mods="Control", command={ program="/opt/homebrew/bin/zellij", args=["ac", "switch-mode", "tab"] } },
   { key="Key9",     mods="Command|Shift", command={ program="/opt/homebrew/bin/zellij", args=["ac", "focus-previous-pane"] } },
