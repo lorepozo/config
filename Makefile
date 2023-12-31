@@ -30,7 +30,7 @@ py:
 	virtualenv ~/.py
 
 clis: trizen
-	sudo pacman -S git zsh mosh tmux gnupg pass jq exa fd ripgrep
+	sudo pacman -S git zsh mosh tmux zellij gnupg pass jq exa sd bat fd ripgrep
 
 trizen:
 	git clone https://aur.archlinux.org/trizen.git
@@ -61,7 +61,7 @@ mac-py:
 	virtualenv ~/.py
 
 mac-clis:
-	brew install mosh tmux pass jq exa fd ripgrep
+	brew install mosh tmux zellij pass jq exa sd bat fd ripgrep
 
 mac-alacritty:
 	brew cask install alacritty
@@ -79,7 +79,9 @@ mac-hammerspoon:
 files: sh bins vim
 	cp gitconfig ~/.gitconfig
 	cp tmux.conf ~/.tmux.conf
-	mkdir -p ~/.config/alacritty && cp alacritty.yml ~/.config/alacritty/alacritty.yml
+	mkdir -p ~/.config/alacritty && cp alacritty.toml ~/.config/alacritty/alacritty.toml
+	cp -r zellij ~/.config/
+	curl -LSso ~/.config/zellij/zjstatus.wasm https://github.com/dj95/zjstatus/releases/download/v0.11.2/zjstatus.wasm
 
 sh:
 	git clone --recursive https://github.com/lorepozo/zsh ~/.zsh && ln -s ~/.zsh/zshrc ~/.zshrc
