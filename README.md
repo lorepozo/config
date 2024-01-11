@@ -11,20 +11,30 @@ Makefile to see what other targets there are, and what they do.
 
 ### macOS
 
-Only one primary target for macs:
-
 ```sh
 make mac
+```
+
+### Ubuntu
+
+```sh
+make ubuntu
 ```
 
 ### Arch Linux or Parabola GNU/Linux-libre
 
 First: install sudo, enable privileges for a new user, and log in as that user.
 
+
 ```sh
-# install and configure most things (e.g. vim, zsh, git)
-make
-# setup gui (xorg, xmonad) for a macbook or VMWare vm
+make arch
+```
+
+# Additional targets
+
+Set up gui (xorg, xmonad) for a macbook or VMWare vm
+
+```sh
 make gui-mac
 make gui-vm
 ```

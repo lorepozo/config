@@ -1,49 +1,64 @@
-all: start files
+arch: arch-start files
 	@echo "run `make gui' to setup gui environment"
+
+ubuntu: ubuntu-start files
 
 mac: mac-start files
 
 
-#############
-### start ###
-#############
+##############
+### ubuntu ###
+##############
 
-start: lang lang-util clis service
+ubuntu-start: ubuntu-lang ubuntu-clis
+	sudo chsh -s /bin/zsh
+
+ubuntu-lang: rust ubuntu-py
+	sudo apt install nodejs npm texlive texlive-latex-extra
+
+ubuntu-py:
+	sudo apt install python3.8-venv
+	pip install --upgrade pip
+	pip install ipython ptpython
+	python -m venv ~/.py
+
+ubuntu-clis:
+	sudo apt install zsh mosh tmux gnupg pass jq bat ripgrep
+	cargo install --locked zellij eza sd fd-find git-delta
+
+############
+### arch ###
+############
+
+arch-start: arch-lang arch-lang-util arch-clis arch-service
 	chsh -s /bin/zsh
 
-lang: rust
+arch-lang: rust
 	sudo pacman -S python go nodejs npm texlive-core
 
-rust:
-	curl https://sh.rustup.rs -sSf | sh
-	~/.cargo/bin/rustup update
-	~/.cargo/bin/rustup install nightly
-	~/.cargo/bin/rustup component add rustfmt-preview
-
-lang-util: py
+arch-lang-util: arch-py
 	sudo pacman -S texlive-latexextra texlive-genericextra
 
-py:
-	sudo pacman -S ipython python-pip python-virtualenv
+arch-py:
+	sudo pacman -S python-pip
 	pip install --upgrade pip # arch repo can be outdated
-	sudo pip install ptpython
-	virtualenv ~/.py
+	sudo pip install ipython ptpython
+	python -m venv ~/.py
 
-clis: trizen
-	sudo pacman -S git zsh mosh tmux zellij gnupg pass jq exa sd bat fd ripgrep git-delta
+arch-clis: trizen
+	sudo pacman -S git zsh mosh tmux zellij gnupg pass jq eza sd bat fd ripgrep git-delta
 
 trizen:
 	git clone https://aur.archlinux.org/trizen.git
 	cd trizen && makepkg -si
 
-service:
+arch-service:
 	sudo pacman -S openssh
 	sudo systemctl enable sshd
 
-
-#################
-### mac-start ###
-#################
+###########
+### mac ###
+###########
 
 mac-start: brew mac-lang mac-clis mac-alacritty mac-hammerspoon
 	chsh -s /bin/zsh
@@ -51,7 +66,7 @@ mac-start: brew mac-lang mac-clis mac-alacritty mac-hammerspoon
 brew:
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-mac-lang: mac-py rust
+mac-lang: mac-py
 	brew install go
 	brew cask install mactex
 
@@ -61,7 +76,7 @@ mac-py:
 	virtualenv ~/.py
 
 mac-clis:
-	brew install mosh tmux zellij pass jq exa sd bat fd ripgrep git-delta
+	brew install mosh tmux zellij pass jq eza sd bat fd ripgrep git-delta
 
 mac-alacritty:
 	brew cask install alacritty
@@ -70,6 +85,14 @@ mac-hammerspoon:
 	brew install hammerspoon
 	mkdir -p ~/.hammerspoon
 	cp hammerspoon.lua ~/.hammerspoon/init.lua
+
+####################
+### other common ###
+####################
+
+rust:
+	curl https://sh.rustup.rs -sSf | sh
+	~/.cargo/bin/rustup update
 
 
 #############
@@ -84,10 +107,9 @@ files: sh bins vim
 	curl -LSso ~/.config/zellij/zjstatus.wasm https://github.com/dj95/zjstatus/releases/download/v0.11.2/zjstatus.wasm
 
 sh:
-	git clone --recursive https://github.com/lorepozo/zsh ~/.zsh && ln -s ~/.zsh/zshrc ~/.zshrc
+	git clone --recursive https://github.com/lorepozo/zsh ~/.zsh && ln -sf ~/.zsh/zshrc ~/.zshrc
 	echo "source ~/.zsh/aliases.zsh" >>~/.bashrc
 	echo "source ~/.zsh/environment.zsh" >>~/.bashrc
-	source ~/.bashrc
 
 bins:
 	mkdir -p ~/bin
