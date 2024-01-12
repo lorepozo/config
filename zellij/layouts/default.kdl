@@ -1,24 +1,25 @@
 layout {
-  // using `ui` to integrate with swaps https://github.com/dj95/zjstatus/issues/8#issuecomment-1727079906
-  ui { // current tab
+  // see https://github.com/dj95/zjstatus/issues/8#issuecomment-1727079906
+  // replaced `ui` with `tab` to work as desired with new tab template.
+  tab name="main" {
     pane
   }
 
   // swaps from zellij setup --dump-swap-layout default
   swap_tiled_layout name="vertical" {
-      ui max_panes=5 {
+      tab max_panes=5 {
           pane split_direction="vertical" {
               pane
               pane { children; }
           }
       }
-      ui max_panes=8 {
+      tab max_panes=8 {
           pane split_direction="vertical" {
               pane { children; }
               pane { pane; pane; pane; pane; }
           }
       }
-      ui max_panes=12 {
+      tab max_panes=12 {
           pane split_direction="vertical" {
               pane { children; }
               pane { pane; pane; pane; pane; }
@@ -28,17 +29,17 @@ layout {
   }
 
   swap_tiled_layout name="horizontal" {
-      ui max_panes=5 {
+      tab max_panes=5 {
           pane
           pane
       }
-      ui max_panes=8 {
+      tab max_panes=8 {
           pane {
               pane split_direction="vertical" { children; }
               pane split_direction="vertical" { pane; pane; pane; pane; }
           }
       }
-      ui max_panes=12 {
+      tab max_panes=12 {
           pane {
               pane split_direction="vertical" { children; }
               pane split_direction="vertical" { pane; pane; pane; pane; }
@@ -48,7 +49,7 @@ layout {
   }
 
   swap_tiled_layout name="stacked" {
-      ui min_panes=5 {
+      tab min_panes=5 {
           pane split_direction="vertical" {
               pane
               pane stacked=true { children; }
@@ -56,28 +57,47 @@ layout {
       }
   }
 
-  tab_template name="ui" {
+  default_tab_template {
     children
-    pane size=2 borderless=true {
-        plugin location="zellij:status-bar"
+    pane size=1 borderless=true {
+      plugin location="file:/Users/lore/.config/zellij/zjstatus.wasm" {
+        format_left  "#[fg=15,bg=234]{mode}"
+        format_right ""
+        format_space "#[fg=250,bg=234]"
+
+        mode_normal        "#[fg=9,bold,bg=234]g#[fg=15,bg=234]:lock  #[fg=80,bold,bg=234]p#[fg=15,bg=234]ane  #[fg=80,bold,bg=234]⇥#[fg=15,bg=234]:tab  #[fg=5,bold,bg=234]n#[fg=15,bg=234]:resize  #[fg=226,bold,bg=234]h#[fg=15,bg=234]:move  #[fg=208,bold,bg=234]s#[fg=15,bg=234]earch    #[bold,bg=234]|    #[fg=208,bold,bg=234]⌥#[fg=15,bg=234]#[fg=123,bold,bg=234]n#[fg=15,bg=234]:new pane  #[fg=208,bold,bg=234]⌥#[fg=15,bg=234][#[fg=123,bold,bg=234]←↑↓→#[fg=15,bg=234]]:navigate  #[fg=208,bold,bg=234]⌥#[fg=15,bg=234][#[fg=123,bold,bg=234]+-#[fg=15,bg=234]]:resize"
+        mode_locked        "#[bg=9] {name} "
+        mode_resize        "#[bg=5] {name} #[fg=15,bg=234]  #[fg=123,bold,bg=234]+#[fg=15,bg=234]:increase  #[fg=123,bold,bg=234]-#[fg=15,bg=234]:decrease  [#[fg=123,bold,bg=234]←↑↓→ hjkl#[fg=15,bg=234]]:increase  [#[fg=123,bold,bg=234]HJKL#[fg=15,bg=234]]:decrease"
+        mode_pane          "#[fg=234,bg=80] {name} #[fg=15,bg=234]  #[fg=123,bold,bg=234]n#[fg=15,bg=234]ew  [#[fg=123,bold,bg=234]-d#[fg=15,bg=234]]:new down  [#[fg=123,bold,bg=234]|r#[fg=15,bg=234]]:new right  [#[fg=123,bold,bg=234]←↑↓→ hjlk#[fg=15,bg=234]]:navigate  #[fg=123,bold,bg=234]x#[fg=15,bg=234]:close  #[fg=123,bold,bg=234],#[fg=15,bg=234]:rename  #[fg=123,bold,bg=234]f#[fg=15,bg=234]ullscreen  #[fg=123,bold,bg=234]w#[fg=15,bg=234]:floating  #[fg=123,bold,bg=234]e#[fg=15,bg=234]mbed"
+        mode_tab           "#[fg=232,bg=82] {name} #[fg=15,bg=234]  #[fg=123,bold,bg=234]n#[fg=15,bg=234]ew  [#[fg=123,bold,bg=234]←→ hl#[fg=15,bg=234]]:navigate  #[fg=123,bold,bg=234]x#[fg=15,bg=234]:close  #[fg=123,bold,bg=234],#[fg=15,bg=234]:rename  #[fg=123,bold,bg=234]s#[fg=15,bg=234]ync  #[fg=123,bold,bg=234]b[]#[fg=15,bg=234]:break"
+        mode_scroll        "#[bg=208] {name} #[fg=15,bg=234]  #[fg=123,bold,bg=234]s#[fg=15,bg=234]earch  [#[fg=123,bold,bg=234]↑↓ jk#[fg=15,bg=234]]:scroll  [#[fg=123,bold,bg=234]fb#[fg=15,bg=234]]:page  [#[fg=123,bold,bg=234]ud#[fg=15,bg=234]]:half page"
+        mode_enter_search  "#[bg=208] {name} "
+        mode_search        "#[bg=208] {name} #[fg=15,bg=234]  #[fg=123,bold,bg=234]n#[fg=15,bg=234]ext  #[fg=123,bold,bg=234]p#[fg=15,bg=234]rev  #[fg=123,bold,bg=234]c#[fg=15,bg=234]ase sensitive  #[fg=123,bold,bg=234]w#[fg=15,bg=234]rap  #[fg=123,bold,bg=234]o#[fg=15,bg=234]:whole words  #[fg=123,bold,bg=234]s#[fg=15,bg=234]earch  [#[fg=123,bold,bg=234]↑↓ jk#[fg=15,bg=234]]:scroll  [#[fg=123,bold,bg=234]fb#[fg=15,bg=234]]:page  [#[fg=123,bold,bg=234]ud#[fg=15,bg=234]]:half page"
+        mode_rename_tab    "#[bg=234] {name} "
+        mode_rename_pane   "#[bg=234] {name} "
+        mode_session       "#[fg=0,bg=15] {name} #[fg=15,bg=234]  #[fg=123,bold,bg=234]q#[fg=15,bg=234]uit  #[fg=123,bold,bg=234]d#[fg=15,bg=234]etach"
+        mode_move          "#[bg=226] {name} #[fg=15,bg=234]  #[fg=123,bold,bg=234]n#[fg=15,bg=234]ext  #[fg=123,bold,bg=234]p#[fg=15,bg=234]rev  [#[fg=123,bold,bg=234]←↑↓→ hjkl#[fg=15,bg=234]]:move"
+        mode_prompt        "#[bg=0] {name} "
+        mode_tmux          "#[bg=0] {name} "
+      }
     }
     pane size=1 borderless=true {
       plugin location="file:/Users/lore/.config/zellij/zjstatus.wasm" {
-          format_left  "#[fg=15,bg=234]{#[fg=83,bold]macbook#[fg=15]} {tabs}"
-          format_right "λ {datetime}"
-          format_space "#[fg=250,bg=234]"
+        format_left  "#[fg=15,bg=234]{#[fg=83,bold]macbook#[fg=15]} {tabs}"
+        format_right "λ {datetime}"
+        format_space "#[fg=250,bg=234]"
 
-          tab_normal            "#[fg=138,bg=235] {index}#[fg=237,bg=235]:#[fg=250,bg=235]{name}#[fg=39,bg=235] #[fg=15,bg=234] "
-          tab_normal_fullscreen "#[fg=138,bg=235] {index}#[fg=237,bg=235]:#[fg=250,bg=235]{name}#[fg=39,bg=235]F #[fg=15,bg=234] "
-          tab_normal_sync       "#[fg=138,bg=235] {index}#[fg=237,bg=235]:#[fg=250,bg=235]{name}#[fg=39,bg=235]S #[fg=15,bg=234] "
+        tab_normal            "#[fg=138,bg=235] {index}#[fg=237,bg=235]:#[fg=250,bg=235]{name}#[fg=39,bg=235] #[fg=15,bg=234] "
+        tab_normal_fullscreen "#[fg=138,bg=235] {index}#[fg=237,bg=235]:#[fg=250,bg=235]{name}#[fg=39,bg=235]F #[fg=15,bg=234] "
+        tab_normal_sync       "#[fg=138,bg=235] {index}#[fg=237,bg=235]:#[fg=250,bg=235]{name}#[fg=39,bg=235]S #[fg=15,bg=234] "
 
-          tab_active            "#[fg=81,bg=238,bold] {index}#[fg=250,bg=238]:#[fg=15,bg=238,bold]{name}#[fg=50,bg=238,bold]* #[fg=15,bg=234] "
-          tab_active_fullscreen "#[fg=81,bg=238,bold] {index}#[fg=250,bg=238]:#[fg=15,bg=238,bold]{name}#[fg=50,bg=238,bold]F* #[fg=15,bg=234] "
-          tab_active_sync       "#[fg=81,bg=238,bold] {index}#[fg=250,bg=238]:#[fg=15,bg=238,bold]{name}#[fg=50,bg=238,bold]S* #[fg=15,bg=234] "
+        tab_active            "#[fg=81,bg=238,bold] {index}#[fg=250,bg=238]:#[fg=15,bg=238,bold]{name}#[fg=50,bg=238,bold]* #[fg=15,bg=234] "
+        tab_active_fullscreen "#[fg=81,bg=238,bold] {index}#[fg=250,bg=238]:#[fg=15,bg=238,bold]{name}#[fg=50,bg=238,bold]F* #[fg=15,bg=234] "
+        tab_active_sync       "#[fg=81,bg=238,bold] {index}#[fg=250,bg=238]:#[fg=15,bg=238,bold]{name}#[fg=50,bg=238,bold]S* #[fg=15,bg=234] "
 
-          datetime          "#[fg=233,bg=245,bold] {format} "
-          datetime_format   "%a, %b %d %H:%M"
-          datetime_timezone "US/Eastern"
+        datetime          "#[fg=233,bg=245,bold] {format} "
+        datetime_format   "%a, %b %d %H:%M"
+        datetime_timezone "US/Eastern"
       }
     }
   }
