@@ -1,5 +1,7 @@
 pane_frames false
 
+default_shell "zsh"
+
 theme "lore"
 
 themes {
