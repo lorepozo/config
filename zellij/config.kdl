@@ -28,12 +28,9 @@ ui {
 
 keybinds clear-defaults=true {
     // foreign bindings (in alacritty):
-    //  Ctrl Tab    -> tab mode
-    //  Ctrl `      -> pane mode
-    //  Cmd Shift 9 -> prev pane
-    //  Cmd Shift 0 -> next pane
-    //  Cmd Shift [ -> prev tab
-    //  Cmd Shift ] -> next tab
+    //  Ctrl Tab    -> Alt t : tab mode
+    //  Cmd Shift [ -> Alt P : prev tab
+    //  Cmd Shift ] -> Alt N : next tab
     normal {
     }
     locked {
@@ -144,6 +141,8 @@ keybinds clear-defaults=true {
         bind "Alt Right" { MoveFocusOrTab "Right"; }
         bind "Alt Down" { MoveFocus "Down"; }
         bind "Alt Up" { MoveFocus "Up"; }
+        bind "Alt P" { GoToPreviousTab; }
+        bind "Alt N" { GoToNextTab; }
         bind "Alt =" "Alt +" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt [" { PreviousSwapLayout; }
@@ -154,6 +153,9 @@ keybinds clear-defaults=true {
     }
     shared_except "locked" "pane" {
         bind "Ctrl p" { SwitchToMode "Pane"; }
+    }
+    shared_except "locked" "tab" {
+        bind "Alt t" { SwitchToMode "Tab"; }
     }
     shared_except "locked" "resize" {
         bind "Ctrl n" { SwitchToMode "Resize"; }
