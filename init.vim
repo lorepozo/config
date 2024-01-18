@@ -38,9 +38,11 @@ Plug 'preservim/nerdcommenter'
 Plug 'digitaltoad/vim-pug'
 Plug 'wlangstroth/vim-racket'
 Plug 'rust-lang/rust.vim'
+Plug 'cespare/vim-toml'
 Plug 'leafgarland/typescript-vim'
 Plug 'mbbill/undotree'
 " Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+Plug 'github/copilot.vim'
 call plug#end()
 
 " let g:LanguageClient_autoStart = 0
@@ -105,3 +107,4 @@ noremap W :w<CR>
 noremap <C-c> :call NERDComment(0, 'toggle')<CR>
 vnoremap <C-c> :call NERDComment(1, 'minimal')<CR>
 noremap <silent> ,u :UndotreeToggle<CR>
+noremap T :.-1r !date -Idate<CR>

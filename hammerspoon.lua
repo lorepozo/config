@@ -19,18 +19,11 @@ local keys = {
     ["Right 50% window"] = {hyper, "l"},
     ["Move window display left"] = {hyper, "["},
     ["Move window display right"] = {hyper, "]"},
+    ["RustRover"] = {{"option"}, "c"},
   },
   ["apps"] = {
     ["Alacritty"] = {{"option"}, "a"},
-    --["Slack"] = {{"option"}, "s"},
-    --["Microsoft Remote Desktop"] = {{"option"}, "d"},
-    ["Safari"] = {{"option"}, "s"},
-    --["Firefox"] = {{"option"}, "f"},
-    --["IntelliJ IDEA CE 2019"] = {{"option"}, "j"},
-    --["IntelliJ IDEA CE"] = {{"option"}, "j"},
-    --["AWS VPN Client"] = {{"option"}, "v"},
-    --["zoom.us"] = {{"option"}, "z"},
-    --["Google Chrome"] = {{"cmd", "option"}, "c"},
+    ["Vivaldi"] = {{"option"}, "v"},
     ["Finder"] = {{"option"}, "f"},
   },
 }
@@ -107,6 +100,19 @@ specials["Move window display right"] = function()
   local win = hs.window.focusedWindow()
   if not win then hs.alert.show("Can't move window"); return end
   win:moveOneScreenEast()
+end
+
+-- because RustRover with remote gateway can lead to multiple applications, we
+-- need to handle it differently than normal apps
+specials["RustRover"] = function()
+  a, b = hs.application.find("RustRover")
+  if b ~= nil and not b:isFrontmost() then
+    b:activate()
+  elseif a ~= nil then
+    a:activate()
+  else
+    hs.application.launchOrFocus("RustRover 2023.3 EAP")
+  end
 end
 
 ------------

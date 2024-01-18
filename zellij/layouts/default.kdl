@@ -62,13 +62,13 @@ layout {
     pane size=1 borderless=true {
       plugin location="file:/Users/lore/.config/zellij/zjstatus.wasm" {
         format_left  "#[fg=15,bg=234]{mode}"
-        format_right ""
+        format_right "#[fg=250,bg=234]{swap_layout}"
         format_space "#[fg=250,bg=234]"
 
-        mode_normal        "#[fg=9,bold,bg=234]g#[fg=15,bg=234]:lock  #[fg=80,bold,bg=234]p#[fg=15,bg=234]ane  #[fg=80,bold,bg=234]⇥#[fg=15,bg=234]:tab  #[fg=5,bold,bg=234]n#[fg=15,bg=234]:resize  #[fg=226,bold,bg=234]h#[fg=15,bg=234]:move  #[fg=208,bold,bg=234]s#[fg=15,bg=234]earch    #[bold,bg=234]|    #[fg=208,bold,bg=234]⌥#[fg=15,bg=234]#[fg=123,bold,bg=234]n#[fg=15,bg=234]:new pane  #[fg=208,bold,bg=234]⌥#[fg=15,bg=234][#[fg=123,bold,bg=234]←↑↓→#[fg=15,bg=234]]:navigate  #[fg=208,bold,bg=234]⌥#[fg=15,bg=234][#[fg=123,bold,bg=234]+-#[fg=15,bg=234]]:resize"
-        mode_locked        "#[bg=9] {name} "
+        mode_normal        "#[fg=9,bold,bg=234]g#[fg=15,bg=234]:lock  #[fg=80,bold,bg=234]p#[fg=15,bg=234]ane  #[fg=80,bold,bg=234]⇥#[fg=15,bg=234]:tab  #[fg=5,bold,bg=234]n#[fg=15,bg=234]:resize  #[fg=226,bold,bg=234]h#[fg=15,bg=234]:move  #[fg=208,bold,bg=234]s#[fg=15,bg=234]earch    #[bold,bg=234]|    #[fg=208,bold,bg=234]⌥#[fg=15,bg=234]#[fg=123,bold,bg=234]n#[fg=15,bg=234]:new pane  #[fg=208,bold,bg=234]⌥#[fg=15,bg=234][#[fg=123,bold,bg=234]←↑↓→#[fg=15,bg=234]]:navigate  #[fg=208,bold,bg=234]⌥#[fg=15,bg=234][#[fg=123,bold,bg=234]+-#[fg=15,bg=234]]:resize  #[fg=208,bold,bg=234]⌥#[fg=15,bg=234]#[fg=123,bold,bg=234][]#[fg=15,bg=234]:swap layout"
+        mode_locked        ""
         mode_resize        "#[bg=5] {name} #[fg=15,bg=234]  #[fg=123,bold,bg=234]+#[fg=15,bg=234]:increase  #[fg=123,bold,bg=234]-#[fg=15,bg=234]:decrease  [#[fg=123,bold,bg=234]←↑↓→ hjkl#[fg=15,bg=234]]:increase  [#[fg=123,bold,bg=234]HJKL#[fg=15,bg=234]]:decrease"
-        mode_pane          "#[fg=234,bg=80] {name} #[fg=15,bg=234]  #[fg=123,bold,bg=234]n#[fg=15,bg=234]ew  [#[fg=123,bold,bg=234]-d#[fg=15,bg=234]]:new down  [#[fg=123,bold,bg=234]|r#[fg=15,bg=234]]:new right  [#[fg=123,bold,bg=234]←↑↓→ hjlk#[fg=15,bg=234]]:navigate  #[fg=123,bold,bg=234]x#[fg=15,bg=234]:close  #[fg=123,bold,bg=234],#[fg=15,bg=234]:rename  #[fg=123,bold,bg=234]f#[fg=15,bg=234]ullscreen  #[fg=123,bold,bg=234]w#[fg=15,bg=234]:floating  #[fg=123,bold,bg=234]e#[fg=15,bg=234]mbed"
+        mode_pane          "#[fg=234,bg=80] {name} #[fg=15,bg=234]  #[fg=123,bold,bg=234]n#[fg=15,bg=234]ew  [#[fg=123,bold,bg=234]-d#[fg=15,bg=234]]:new down  [#[fg=123,bold,bg=234]|r#[fg=15,bg=234]]:new right  [#[fg=123,bold,bg=234]←↑↓→ hjlk#[fg=15,bg=234]]:navigate  #[fg=123,bold,bg=234]x#[fg=15,bg=234]:close  #[fg=123,bold,bg=234],#[fg=15,bg=234]:rename  #[fg=123,bold,bg=234]f#[fg=15,bg=234]ullscreen  #[fg=123,bold,bg=234]w#[fg=15,bg=234]:floating  #[fg=123,bold,bg=234]e#[fg=15,bg=234]mbed  #[fg=123,bold,bg=234]z#[fg=15,bg=234]:frames"
         mode_tab           "#[fg=232,bg=82] {name} #[fg=15,bg=234]  #[fg=123,bold,bg=234]n#[fg=15,bg=234]ew  [#[fg=123,bold,bg=234]←→ hl#[fg=15,bg=234]]:navigate  #[fg=123,bold,bg=234]x#[fg=15,bg=234]:close  #[fg=123,bold,bg=234],#[fg=15,bg=234]:rename  #[fg=123,bold,bg=234]s#[fg=15,bg=234]ync  #[fg=123,bold,bg=234]b[]#[fg=15,bg=234]:break"
         mode_scroll        "#[bg=208] {name} #[fg=15,bg=234]  #[fg=123,bold,bg=234]s#[fg=15,bg=234]earch  [#[fg=123,bold,bg=234]↑↓ jk#[fg=15,bg=234]]:scroll  [#[fg=123,bold,bg=234]fb#[fg=15,bg=234]]:page  [#[fg=123,bold,bg=234]ud#[fg=15,bg=234]]:half page"
         mode_enter_search  "#[bg=208] {name} "
@@ -83,11 +83,11 @@ layout {
     }
     pane size=1 borderless=true {
       plugin location="file:/Users/lore/.config/zellij/zjstatus.wasm" {
-        format_left  "#[fg=15]{#[fg=83,bold]macbook#[fg=15]} {tabs}"
+        format_left  "#[fg=15,bg=234]{#[fg=83,bold,bg=234]macbook#[fg=15,bg=234]} {tabs}"
         format_right "#[bg=234]λ {datetime}"
         format_space "#[fg=250,bg=234]"
-        //format_left  "#[fg=15,bg=234]{#[fg=165,bold]coder#[fg=15]} {tabs}"
-        //format_right "#[fg=254,bg=165] coder #[bg=234,fg=15] "
+        // format_left  "#[fg=15,bg=234]{#[fg=165,bold]remote#[fg=15]} {tabs}"
+        // format_right "#[fg=254,bg=165] remote #[bg=234,fg=15] "
 
         tab_normal            "#[fg=138,bg=235] {index}#[fg=237,bg=235]:#[fg=250,bg=235]{name}#[fg=39,bg=235] #[fg=15,bg=234] "
         tab_normal_fullscreen "#[fg=138,bg=235] {index}#[fg=237,bg=235]:#[fg=250,bg=235]{name}#[fg=39,bg=235]F #[fg=15,bg=234] "
