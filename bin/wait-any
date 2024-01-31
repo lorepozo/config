@@ -1,5 +1,4 @@
 #!/bin/sh
-# only works on linux
 
 print_usage () {
   >&2 cat <<< "Usage: $(basename $0) [-h | -s] (PID | NAME)
@@ -27,7 +26,7 @@ fi
 # if pid, wait for it.
 # if name, wait for every proc with that name
 if [ $1 -ge 0 ] &>/dev/null
-then while [ -d /proc/$1 ]
+then while ps -p $1 >/dev/null
   do sleep $s
   done
 else

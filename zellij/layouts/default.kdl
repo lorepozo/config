@@ -76,7 +76,7 @@ layout {
         mode_rename_tab    "#[bg=234] {name} "
         mode_rename_pane   "#[bg=234] {name} "
         mode_session       "#[fg=0,bg=15] {name} #[fg=15,bg=234]  #[fg=123,bold,bg=234]q#[fg=15,bg=234]uit  #[fg=123,bold,bg=234]d#[fg=15,bg=234]etach"
-        mode_move          "#[bg=226] {name} #[fg=15,bg=234]  #[fg=123,bold,bg=234]n#[fg=15,bg=234]ext  #[fg=123,bold,bg=234]p#[fg=15,bg=234]rev  [#[fg=123,bold,bg=234]←↑↓→ hjkl#[fg=15,bg=234]]:move"
+        mode_move          "#[fg=0,bg=226] {name} #[fg=15,bg=234]  #[fg=123,bold,bg=234]n#[fg=15,bg=234]ext  #[fg=123,bold,bg=234]p#[fg=15,bg=234]rev  [#[fg=123,bold,bg=234]←↑↓→ hjkl#[fg=15,bg=234]]:move"
         mode_prompt        "#[bg=0] {name} "
         mode_tmux          "#[bg=0] {name} "
       }
