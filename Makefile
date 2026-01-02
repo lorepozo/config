@@ -10,11 +10,15 @@ mac: mac-start files
 ### ubuntu ###
 ##############
 
-ubuntu-start: ubuntu-lang ubuntu-clis
+ubuntu-start: ubuntu-essential ubuntu-lang ubuntu-clis
 	sudo chsh -s /bin/zsh
 
+ubuntu-essential:
+	sudo apt-get -y update
+	sudo apt-get -y install build-essential
+
 ubuntu-lang: rust ubuntu-py
-	sudo apt install nodejs npm texlive texlive-latex-extra
+	sudo apt-get -y install nodejs npm texlive texlive-latex-extra
 
 ubuntu-py:
 	sudo apt install python3.8-venv
@@ -24,7 +28,7 @@ ubuntu-py:
 
 ubuntu-clis:
 	sudo apt install zsh mosh tmux gnupg pass jq bat ripgrep
-	cargo install --locked zellij eza sd fd-find git-delta
+	~/.cargo/bin/cargo install --locked zellij eza sd fd-find git-delta
 
 ############
 ### arch ###
