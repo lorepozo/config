@@ -16,6 +16,7 @@ autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType python setlocal shiftwidth=4
 hi VertSplit ctermfg=235
 hi Search cterm=NONE ctermfg=red ctermbg=lightyellow
+hi PopupNotification ctermbg=lightblue guibg=lightblue
 
 if has('nvim')
   autocmd TermOpen * setlocal nonumber nornu
@@ -25,6 +26,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'FStarLang/VimFStar', {'for': 'fstar'}
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -32,58 +35,29 @@ Plug 'fatih/vim-go'
 Plug 'junegunn/goyo.vim'
 Plug 'elzr/vim-json'
 Plug 'junegunn/limelight.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 Plug 'imsnif/kdl.vim'
 Plug 'preservim/vim-markdown'
 Plug 'preservim/nerdcommenter'
 Plug 'digitaltoad/vim-pug'
 Plug 'wlangstroth/vim-racket'
 Plug 'rust-lang/rust.vim'
-Plug 'cespare/vim-toml'
 Plug 'leafgarland/typescript-vim'
 Plug 'mbbill/undotree'
-" Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-Plug 'github/copilot.vim'
 call plug#end()
 
-" let g:LanguageClient_autoStart = 0
-" let g:LanguageClient_serverCommands = {
-"     \ 'python': ['pyls'],
-"     \ 'rust': ['rls'],
-"     \ 'javascript': ['javascript-typescript-stdio'],
-"     \ 'typescript': ['javascript-typescript-stdio'],
-"     \ 'go': ['go-langserver'] }
-" let g:LanguageClient_diagnosticsDisplay = {
-"     \     1: {
-"     \         "name": "Error",
-"     \         "texthl": "ALEError",
-"     \         "signText": "E",
-"     \         "signTexthl": "ALEErrorSign",
-"     \     },
-"     \     2: {
-"     \         "name": "Warning",
-"     \         "texthl": "ALEWarning",
-"     \         "signText": "W",
-"     \         "signTexthl": "ALEWarningSign",
-"     \     },
-"     \     3: {
-"     \         "name": "Information",
-"     \         "texthl": "ALEInfo",
-"     \         "signText": "I",
-"     \         "signTexthl": "ALEInfoSign",
-"     \     },
-"     \     4: {
-"     \         "name": "Hint",
-"     \         "texthl": "ALEInfo",
-"     \         "signText": "➤",
-"     \         "signTexthl": "ALEInfoSign",
-"     \     },
-"     \ }
-noremap <silent> ,h :call LanguageClient_textDocument_hover()<CR>
-noremap <silent> ,d :call LanguageClient_textDocument_definition()<CR>
-noremap <silent> ,r :call LanguageClient_textDocument_references()<CR>
-noremap <silent> ,n :call LanguageClient_textDocument_rename()<CR>
-noremap <silent> ,s :call LanguageClient_textDocument_documentSymbol()<CR>
-noremap <silent> ,! :LanguageClientStart<CR>
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+autocmd User lsp_float_opened call setwinvar(lsp#document_hover_preview_winid(), '&wincolor', 'PopupNotification')
+
+noremap <silent> ,h :LspHover<CR>
+noremap <silent> ,d :LspDefinition<CR>
+noremap <silent> ,r :LspReferences<CR>
+noremap <silent> ,n :LspRename<CR>
+noremap <silent> ,s :LspDocumentSymbol<CR>
 
 colorscheme lore
 let g:airline_theme = "simple"
@@ -107,4 +81,3 @@ noremap W :w<CR>
 noremap <C-c> :call NERDComment(0, 'toggle')<CR>
 vnoremap <C-c> :call NERDComment(1, 'minimal')<CR>
 noremap <silent> ,u :UndotreeToggle<CR>
-noremap T :.-1r !date -Idate<CR>
