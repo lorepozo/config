@@ -29,7 +29,7 @@ ubuntu-py:
 	python -m venv ~/.py
 
 ubuntu-clis:
-	sudo apt install zsh mosh tmux gnupg pass jq bat ripgrep
+	sudo apt install zsh mosh gnupg pass jq bat ripgrep
 	~/.cargo/bin/cargo install --locked zellij eza sd fd-find git-delta
 	~/.cargo/bin/cargo install --locked --bin jj jj-cli
 
@@ -53,7 +53,7 @@ arch-py:
 	python -m venv ~/.py
 
 arch-clis: trizen
-	sudo pacman -S git zsh mosh tmux zellij gnupg pass jq eza sd bat fd ripgrep git-delta
+	sudo pacman -S git zsh mosh zellij gnupg pass jq eza sd bat fd ripgrep git-delta
 	~/.cargo/bin/cargo install --locked --bin jj jj-cli
 
 trizen:
@@ -105,7 +105,7 @@ mac-py:
 	virtualenv ~/.py
 
 mac-clis:
-	brew install mosh tmux zellij pass jq eza sd bat fd ripgrep git-delta jj
+	brew install mosh zellij pass jq eza sd bat fd ripgrep git-delta jj
 
 mac-alacritty:
 	brew cask install alacritty
@@ -130,7 +130,6 @@ rust:
 
 files: sh bins vim
 	cp gitconfig ~/.gitconfig
-	cp tmux.conf ~/.tmux.conf
 	mkdir -p ~/.config/alacritty && cp alacritty.toml ~/.config/alacritty/alacritty.toml
 	cp -r zellij ~/.config/
 	curl -LSso ~/.config/zellij/zjstatus.wasm https://github.com/dj95/zjstatus/releases/download/v0.22.0/zjstatus.wasm
