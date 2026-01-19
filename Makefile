@@ -3,6 +3,8 @@ arch: arch-start files
 
 ubuntu: ubuntu-start files
 
+pi: pi-start files
+
 mac: mac-start files
 
 
@@ -61,6 +63,27 @@ trizen:
 arch-service:
 	sudo pacman -S openssh
 	sudo systemctl enable sshd
+
+####################
+### raspberry pi ###
+####################
+
+pi-start: pi-essential pi-lang pi-clis
+
+pi-essential:
+	sudo apt-get -y update
+	sudo apt-get -y install build-essential
+
+pi-lang: rust
+
+pi-clis:
+	mkdir -p ~/bin
+	sudo apt install zsh mosh jq bat ripgrep
+	curl -LSs https://github.com/zellij-org/zellij/releases/download/v0.43.1/zellij-aarch64-unknown-linux-musl.tar.gz | tar xz && mv zellij ~/bin/zellij
+	curl -LSs https://github.com/eza-community/eza/releases/download/v0.23.4/eza_aarch64-unknown-linux-gnu.tar.gz | tar xz && mv eza ~/bin/eza
+	curl -LSs https://github.com/chmln/sd/releases/download/v1.0.0/sd-v1.0.0-aarch64-unknown-linux-musl.tar.gz | tar xz && mv sd-v1.0.0-aarch64-unknown-linux-musl/sd ~/bin/sd && rm -rf sd-v1.0.0-aarch64-unknown-linux-musl
+	curl -LSs https://github.com/sharkdp/fd/releases/download/v10.3.0/fd-v10.3.0-aarch64-unknown-linux-gnu.tar.gz | tar xz && mv fd-v10.3.0-aarch64-unknown-linux-gnu/fd ~/bin/fd && rm -rf fd-v10.3.0-aarch64-unknown-linux-gnu
+	curl -LSs https://github.com/jj-vcs/jj/releases/download/v0.37.0/jj-v0.37.0-aarch64-unknown-linux-musl.tar.gz | tar xzf - ./jj && mv jj ~/bin/jj
 
 ###########
 ### mac ###
