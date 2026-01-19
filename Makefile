@@ -119,8 +119,6 @@ sh:
 
 bins:
 	mkdir -p ~/bin
-	curl -LSso ~/bin/tobase https://raw.githubusercontent.com/lorepozo/tobase/master/tobase
-	chmod +x ~/bin/tobase
 	cp bin/* ~/bin/
 
 vim: vim-config # vim-langservers
@@ -137,8 +135,6 @@ vim-config:
 vim-langservers:
 	sudo pip3 install python-language-server
 	~/.cargo/bin/rustup component add rust-src rust-analyzer
-	#npm i -g javascript-typescript-langserver
-	#go get -u github.com/sourcegraph/go-langserver
 	cp language_client_settings.json ~/.vim/language_client_settings.json
 
 #############
