@@ -29,6 +29,7 @@ ubuntu-py:
 ubuntu-clis:
 	sudo apt install zsh mosh tmux gnupg pass jq bat ripgrep
 	~/.cargo/bin/cargo install --locked zellij eza sd fd-find git-delta
+	~/.cargo/bin/cargo install --locked --bin jj jj-cli
 
 ############
 ### arch ###
@@ -51,6 +52,7 @@ arch-py:
 
 arch-clis: trizen
 	sudo pacman -S git zsh mosh tmux zellij gnupg pass jq eza sd bat fd ripgrep git-delta
+	~/.cargo/bin/cargo install --locked --bin jj jj-cli
 
 trizen:
 	git clone https://aur.archlinux.org/trizen.git
@@ -80,7 +82,7 @@ mac-py:
 	virtualenv ~/.py
 
 mac-clis:
-	brew install mosh tmux zellij pass jq eza sd bat fd ripgrep git-delta
+	brew install mosh tmux zellij pass jq eza sd bat fd ripgrep git-delta jj
 
 mac-alacritty:
 	brew cask install alacritty
