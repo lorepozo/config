@@ -108,7 +108,7 @@ files: sh bins vim
 	cp tmux.conf ~/.tmux.conf
 	mkdir -p ~/.config/alacritty && cp alacritty.toml ~/.config/alacritty/alacritty.toml
 	cp -r zellij ~/.config/
-	curl -LSso ~/.config/zellij/zjstatus.wasm https://github.com/dj95/zjstatus/releases/download/v0.11.2/zjstatus.wasm
+	curl -LSso ~/.config/zellij/zjstatus.wasm https://github.com/dj95/zjstatus/releases/download/v0.22.0/zjstatus.wasm
 
 sh:
 	git clone --recursive https://github.com/lorepozo/zsh ~/.zsh && ln -sf ~/.zsh/zshrc ~/.zshrc
