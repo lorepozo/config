@@ -1,4 +1,4 @@
-live_config_reload = true
+general.live_config_reload = true
 scrolling.history = 0
 mouse.hide_when_typing = true
 
@@ -9,7 +9,7 @@ option_as_alt = "Both"
 startup_mode = "SimpleFullscreen"
 
 [font]
-size = 11.0 #font.size
+size = 11.0
 offset = { x = 0, y = 4 }
 
 [colors]
@@ -38,124 +38,11 @@ yellow = "0xfeff00"
 
 [keyboard]
 bindings = [
-  { key="P", mods="Command", command={ program="/usr/bin/sed", args=["-i", "", "s%^size = .... #font.size$%size = 40.0 #font.size%", "/Users/lore/.config/alacritty/alacritty.yml"] } },
-  { key="P", mods="Command|Shift", command={ program="/usr/bin/sed", args=["-i", "", "s%^size = .... #font.size$%size = 11.0 #font.size%", "/Users/lore/.config/alacritty/alacritty.yml"] } },
-  # Ctrl-Tab -> Alt t   --- switch to tab mode zellij
-  { key="Tab", mods="Control", chars="\u001bt" },
-  # Alt P/N   --- switch tab zellij
-  { key="LBracket", mods="Command|Shift", chars="\u001bP" },
-  { key="RBracket", mods="Command|Shift", chars="\u001bN" },
-  { key="Key1",     mods="Command",       command={ program="/usr/local/bin/zellij", args=["ac", "go-to-tab", "1"] } },
-  { key="Key2",     mods="Command",       command={ program="/usr/local/bin/zellij", args=["ac", "go-to-tab", "2"] } },
-  { key="Key3",     mods="Command",       command={ program="/usr/local/bin/zellij", args=["ac", "go-to-tab", "3"] } },
-  { key="Key4",     mods="Command",       command={ program="/usr/local/bin/zellij", args=["ac", "go-to-tab", "4"] } },
-  { key="Key5",     mods="Command",       command={ program="/usr/local/bin/zellij", args=["ac", "go-to-tab", "5"] } },
-  { key="Key6",     mods="Command",       command={ program="/usr/local/bin/zellij", args=["ac", "go-to-tab", "5"] } },
-  { key="V",        mods="Command", action="Paste"            },
-  { key="C",        mods="Command", action="Copy"             },
-  { key="Q",        mods="Command", action="Quit"             },
-  { key="W",        mods="Command", action="Quit"             },
-  { key="Key0",     mods="Command", action="ResetFontSize"    },
-  { key="Minus",    mods="Command", action="DecreaseFontSize" },
-  { key="Equals",   mods="Command", action="IncreaseFontSize" },
+  { key="V",   mods="Command", action="Paste"            },
+  { key="C",   mods="Command", action="Copy"             },
+  { key="Q",   mods="Command", action="Quit"             },
+  { key="W",   mods="Command", action="Quit"             },
+  { key="0",   mods="Command", action="ResetFontSize"    },
+  { key="-",   mods="Command", action="DecreaseFontSize" },
+  { key="=",   mods="Command", action="IncreaseFontSize" },
 ]
-
-# === COLORS HIGH ===
-#[colors.bright]
-#black = "0x808080"
-#blue = "0x0066ff"
-#cyan = "0x00ffff"
-#green = "0x33ff00"
-#magenta = "0xcc00ff"
-#red = "0xfe0100"
-#white = "0xFFFFFF"
-#yellow = "0xfeff00"
-
-#[colors.normal]
-#black = "0x000000"
-#blue = "0x0066ff"
-#cyan = "0x00ffff"
-#green = "0x33ff00"
-#magenta = "0xcc00ff"
-#red = "0xfe0100"
-#white = "0xd0d0d0"
-#yellow = "0xfeff00"
-
-#[colors.primary]
-#background = "0x000000"
-#foreground = "0xffffff"
-
-# === COLORS LOW ===
-#[colors.bright]
-#black = "0x666666"
-#blue = "0x0000ff"
-#cyan = "0x00e5e5"
-#green = "0x00d900"
-#magenta = "0xe500e5"
-#red = "0xe50000"
-#white = "0xe5e5e5"
-#yellow = "0xe5e500"
-
-#[colors.normal]
-#black = "0x000000"
-#blue = "0x2040ff"
-#cyan = "0x00a6b2"
-#green = "0x00a600"
-#magenta = "0xb200b2"
-#red = "0x990000"
-#white = "0xbfbfbf"
-#yellow = "0x999900"
-
-#[colors.primary]
-#background = "0x000000"
-#foreground = "0xeaeaea"
-
-# === COLORS MID ===
-#[colors.bright]
-#black = "0x7f7f7f"
-#blue = "0x5c5cff"
-#cyan = "0x00ffff"
-#green = "0x00ff00"
-#magenta = "0xff00ff"
-#red = "0xff0000"
-#white = "0xffffff"
-#yellow = "0xffff00"
-
-#[colors.normal]
-#black = "0x000000"
-#blue = "0x0000ee"
-#cyan = "0x00cdcd"
-#green = "0x00cd00"
-#magenta = "0xcd00cd"
-#red = "0xcd0000"
-#white = "0xe5e5e5"
-#yellow = "0xcdcd00"
-
-#[colors.primary]
-#background = "0x000000"
-#foreground = "0xffffff"
-
-# === COLORS WHITE ===
-#[colors.bright]
-#black = "0x262626"
-#blue = "0xb5b1e0"
-#cyan = "0xb1dce0"
-#green = "0xb1e0b5"
-#magenta = "0xe0b1dc"
-#red = "0xe0b5b1"
-#white = "0xffffff"
-#yellow = "0xdce0b1"
-
-#[colors.normal]
-#black = "0x000000"
-#blue = "0x5a52b9"
-#cyan = "0x52b1b9"
-#green = "0x52b95a"
-#magenta = "0xb952b1"
-#red = "0xb95a52"
-#white = "0xdfdfdf"
-#yellow = "0xb1b952"
-
-#[colors.primary]
-#background = "0xffffff"
-#foreground = "0x112233"
